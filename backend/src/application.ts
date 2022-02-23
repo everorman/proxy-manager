@@ -9,6 +9,10 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
+import { AuthenticationComponent } from '@loopback/authentication';
+import { PasswordHasherBindings, UserServiceBindings } from './keys';
+import { BcryptHasher } from './services/hash.password.bcryptjs';
+import { MyUserService } from './services/user-service';
 
 export {ApplicationConfig};
 
@@ -17,6 +21,11 @@ export class BackendApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
+
+    this.component(AuthenticationComponent);
+    this.bind(PasswordHasherBindings.ROUNDS).to(10);
+    this.bind(PasswordHasherBindings.PASSWORD_HASHER).toClass(BcryptHasher);
+    this.bind(UserServiceBindings.USER_SERVICE).toClass(MyUserService);
 
     // Set up the custom sequence
     this.sequence(MySequence);
