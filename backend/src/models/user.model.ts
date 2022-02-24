@@ -16,8 +16,7 @@ export class User extends Entity {
   email: string;
 
   @property({
-    type: 'string',
-    required: true,
+    type: 'string'
   })
   password: string;
 

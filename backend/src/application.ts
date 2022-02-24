@@ -1,32 +1,42 @@
-import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
+import { AuthenticationComponent } from '@loopback/authentication';
+import {
+  JWTAuthenticationComponent,
+  MyUserService,
+  UserServiceBindings
+} from '@loopback/authentication-jwt';
+import { BootMixin } from '@loopback/boot';
+import { ApplicationConfig } from '@loopback/core';
+import { RepositoryMixin } from '@loopback/repository';
+import { RestApplication } from '@loopback/rest';
 import {
   RestExplorerBindings,
-  RestExplorerComponent,
+  RestExplorerComponent
 } from '@loopback/rest-explorer';
-import {RepositoryMixin} from '@loopback/repository';
-import {RestApplication} from '@loopback/rest';
-import {ServiceMixin} from '@loopback/service-proxy';
+import { ServiceMixin } from '@loopback/service-proxy';
 import path from 'path';
-import {MySequence} from './sequence';
-import { AuthenticationComponent } from '@loopback/authentication';
-import { PasswordHasherBindings, UserServiceBindings } from './keys';
-import { BcryptHasher } from './services/hash.password.bcryptjs';
-import { MyUserService } from './services/user-service';
+import { MysqlDataSource } from './datasources';
+import { MySequence } from './sequence';
+import { AuthService } from './services/auth.service';
 
-export {ApplicationConfig};
+
+export { ApplicationConfig };
 
 export class BackendApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
+    
+    this.service(AuthService);
 
+     // ------ ADD SNIPPET AT THE BOTTOM ---------
+    // Mount authentication system
     this.component(AuthenticationComponent);
-    this.bind(PasswordHasherBindings.ROUNDS).to(10);
-    this.bind(PasswordHasherBindings.PASSWORD_HASHER).toClass(BcryptHasher);
-    this.bind(UserServiceBindings.USER_SERVICE).toClass(MyUserService);
-
+    // Mount jwt component
+    this.component(JWTAuthenticationComponent);
+    // Bind datasource
+    this.dataSource(MysqlDataSource, UserServiceBindings.DATASOURCE_NAME);
+    // ------------- END OF SNIPPET -------------
     // Set up the custom sequence
     this.sequence(MySequence);
 
@@ -49,5 +59,10 @@ export class BackendApplication extends BootMixin(
         nested: true,
       },
     };
+
+     //new
+     this.bind(UserServiceBindings.USER_SERVICE).toClass(MyUserService);
   }
 }
+
+

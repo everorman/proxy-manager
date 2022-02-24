@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@loopback/authentication-jwt": "^0.11.0"
+  }
+}
