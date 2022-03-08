@@ -9,12 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListIPComponent } from './listIP/listIP.component';
+import { AddPageComponent } from './add-page/add-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [		
     AppComponent,
     HomeComponent,
-      ListIPComponent
+      ListIPComponent,
+      AddPageComponent
    ],
   imports: [
     BrowserModule,
@@ -23,6 +27,9 @@ import { ListIPComponent } from './listIP/listIP.component';
     NgxSpinnerModule,
     NgbModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ModalModule.forRoot()
     
   ],
   providers: [],
