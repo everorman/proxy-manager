@@ -11,26 +11,32 @@ import { PageType } from '../types';
   styleUrls: ['./add-page.component.scss']
 })
 export class AddPageComponent implements OnInit {
-  items:PageType[] = [];
+  items: PageType[] = [];
+  currentIp: string = '';
   modalRef!: BsModalRef;
   itemForm = new FormGroup({
     url: new FormControl(''),
-    descripcion: new FormControl(''),
+    description: new FormControl(''),
     status: new FormControl(''),
   });
-  constructor(private pageService:PageService, private modalService: BsModalService) { }
-  
-  ngOnInit() {
-    this.items = this.pageService.getItems();
+  constructor(private pageService: PageService, private modalService: BsModalService) { }
+
+  async ngOnInit() {
+    this.items = await this.pageService.getItems();
+    const consultaIp: {ip:string} = await this.pageService.currentIp();
+    this.currentIp = consultaIp ? consultaIp.ip : '';
   }
 
-  openAddCola(template: TemplateRef<any>){
+
+  openAdd(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 
-  addCola(){
+  async addItem() {
     this.modalRef.hide();
-    this.pageService.addItem(this.itemForm.value)
+
+    await this.pageService.addItem(this.itemForm.value)
+    this.items = await this.pageService.getItems();
     console.log('Guardando...', this.itemForm.value);
   }
 

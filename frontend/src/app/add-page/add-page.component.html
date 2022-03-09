@@ -1,6 +1,7 @@
 <section class="pt-5">
+  <p class="text-right"><strong>Current IP:</strong> {{currentIp}}</p>
   <div class="mb-5">
-    <button type="button" class="btn btn-success" (click)="openAddCola(template)">Unirme a la cola</button>
+    <button type="button" class="btn btn-success" (click)="openAdd(template)">Agregar</button>
   </div>
   <table class="table table-striped table-dark table-hover">
     <thead>
@@ -28,20 +29,28 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="itemForm" (ngSubmit)="addCola()">
+    <form [formGroup]="itemForm" (ngSubmit)="addItem()">
       <div class="form-group">
-        <label for="nombreInput">Nombre</label>
-        <input class="form-control" id="nombreInput" type="text" formControlName="fullName">
+        <label for="nombreInput">Url</label>
+        <input class="form-control" id="nombreInput" type="text" formControlName="url">
       </div>
       <div class="form-group">
-        <label for="islaInput">Tu isla es?</label>
-        <input class="form-control" type="text" formControlName="islaInput" formControlName="islanName">
+        <label for="islaInput">Descripcción</label>
+        <input class="form-control" type="text" formControlName="description">
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select class="form-control" formControlName="status">
+          <option value="enuso">En uso</option>
+          <option value="disponible">Disponible</option>
+        </select>
+        
       </div>
     
 
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-success" (click)="addCola()" >Unirme</button>
+    <button type="submit" class="btn btn-success" (click)="addItem()" >Unirme</button>
   </div>
 </ng-template>
