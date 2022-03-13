@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -10,7 +11,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ListIPComponent implements OnInit {
   listado:any;
 
-  constructor(protected http: HttpClient, private spinner: NgxSpinnerService) { }
+  constructor(
+    protected http: HttpClient, 
+    private spinner: NgxSpinnerService
+  ) { }
 
   loadIp() {
     this.spinner.show();

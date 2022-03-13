@@ -12,6 +12,7 @@ import { ListIPComponent } from './listIP/listIP.component';
 import { AddPageComponent } from './add-page/add-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { CurrentIPResolver } from './resolvers/current-ip.resolver';
 
 @NgModule({
   declarations: [		

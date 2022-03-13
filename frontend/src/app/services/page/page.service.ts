@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PageType } from 'src/app/types';
+import { CurrentIpType, PageType } from 'src/app/types';
 
 @Injectable({
   providedIn: 'root'
@@ -29,10 +29,10 @@ export class PageService {
     return items;
   }
 
-  async currentIp(){
+  currentIp(){
+    console.log('Aqui estoy')
     const url = 'https://api.ipgeolocation.io/getip';
-    const item = await this.http.get<{ ip: string; }>(url).toPromise();
-    console.log(item)
-    return item;
+    return this.http.get<CurrentIpType>(url);
+  
   }
 }

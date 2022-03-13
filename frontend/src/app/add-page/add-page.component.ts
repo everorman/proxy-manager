@@ -2,7 +2,8 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { PageService } from '../services/page/page.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
-import { PageType } from '../types';
+import { CurrentIpType, PageType } from '../types';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -19,12 +20,17 @@ export class AddPageComponent implements OnInit {
     description: new FormControl(''),
     status: new FormControl(''),
   });
-  constructor(private pageService: PageService, private modalService: BsModalService) { }
+  constructor(
+    private pageService: PageService, 
+    private modalService: BsModalService,
+    private route: ActivatedRoute
+    ) { }
 
   async ngOnInit() {
-    this.items = await this.pageService.getItems();
-    const consultaIp: {ip:string} = await this.pageService.currentIp();
-    this.currentIp = consultaIp ? consultaIp.ip : '';
+    // this.items = await this.pageService.getItems();
+    console.log(this.route.snapshot.data);
+    // const consultaIp: CurrentIpType = this.route.snapshot.data;
+    // this.currentIp = consultaIp ? consultaIp.ip : '';
   }
 
 
