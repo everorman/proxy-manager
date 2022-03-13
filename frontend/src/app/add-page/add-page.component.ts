@@ -29,8 +29,8 @@ export class AddPageComponent implements OnInit {
   async ngOnInit() {
     // this.items = await this.pageService.getItems();
     console.log(this.route.snapshot.data);
-    // const consultaIp: CurrentIpType = this.route.snapshot.data;
-    // this.currentIp = consultaIp ? consultaIp.ip : '';
+    const consultaIp: CurrentIpType = this.route.snapshot.data.currentIP;
+    this.currentIp = consultaIp ? consultaIp.ip : '';
   }
 
 
