@@ -1,17 +1,6 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
-const config = {
-  name: 'mysql',
-  connector: 'mysql',
-  url: '',
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: 'root',
-  database: 'proxy-manager'
-};
-
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down
 // gracefully. The `stop()` method is inherited from `juggler.DataSource`.
@@ -20,12 +9,32 @@ const config = {
 export class MysqlDataSource extends juggler.DataSource
   implements LifeCycleObserver {
   static dataSourceName = 'mysql';
-  static readonly defaultConfig = config;
+  static readonly defaultConfig = {
+    name: 'mysql',
+    connector: 'mysql',
+    url: '',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME
+  };
 
   constructor(
     @inject('datasources.config.mysql', {optional: true})
-    dsConfig: object = config,
+    dsConfig: object = {
+      name: 'mysql',
+      connector: 'mysql',
+      url: '',
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      database: process.env.DB_NAME
+    },
   ) {
+    console.log(process.env.DB_HOST)
+    console.log(dsConfig)
     super(dsConfig);
   }
 }

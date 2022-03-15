@@ -35,4 +35,9 @@ export class PageService {
     return this.http.get<CurrentIpType>(url);
   
   }
+
+  getIpDetails(key: string, ip: string){
+    const host = `https://ipqualityscore.com/api/json/ip/dNyiZ0Btm24v9PmFR3cfmZJVZYOPVytH/38.25.16.6`;
+    return this.http.get(host, {headers: this.headers}).toPromise();
+  }
 }

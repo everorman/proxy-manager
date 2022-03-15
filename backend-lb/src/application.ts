@@ -17,6 +17,7 @@ import path from 'path';
 import { MysqlDataSource } from './datasources';
 import { MySequence } from './sequence';
 import { AuthService } from './services/auth.service';
+import * as dotenv from 'dotenv';
 
 
 export { ApplicationConfig };
@@ -26,7 +27,9 @@ export class BackendApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
-    
+    dotenv.config();
+    console.log('******************') 
+    console.log(process.env) 
     this.service(AuthService);
 
      // ------ ADD SNIPPET AT THE BOTTOM ---------

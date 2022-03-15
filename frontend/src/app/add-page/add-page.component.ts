@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-page.component.scss']
 })
 export class AddPageComponent implements OnInit {
+  QUALITY_KEY = 'dNyiZ0Btm24v9PmFR3cfmZJVZYOPVytH';
   items: PageType[] = [];
   currentIp: string = '';
   modalRef!: BsModalRef;
@@ -33,8 +34,14 @@ export class AddPageComponent implements OnInit {
     this.currentIp = consultaIp ? consultaIp.ip : '';
   }
 
+  async loadIpDetail(){
+    const result = await this.pageService.getIpDetails(this.QUALITY_KEY, this.currentIp);
+    console.log(result);
+  }
+
 
   openAdd(template: TemplateRef<any>) {
+    this.loadIpDetail();
     this.modalRef = this.modalService.show(template);
   }
 
