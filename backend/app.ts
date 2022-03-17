@@ -1,8 +1,11 @@
 import express from 'express';
-import ExternalApis from './modules/externalApis';
+import ExternalApis from './src/modules/externalApis';
 import cors from 'cors';
+import "reflect-metadata";
+
 const app = express();
 const externalApis = new ExternalApis();
+
 require('dotenv').config()
 app.use(cors());
 
