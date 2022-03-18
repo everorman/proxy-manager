@@ -16,8 +16,8 @@ export class PageService {
 
   constructor(private http: HttpClient) { }
   async addItem(form: PageType) {
-    const url = 'http://localhost:3000/pages';
-    const item = await this.http.post<PageType>(url, form, { headers: this.headers }).toPromise();
+    const host = `https://ssiproxy.alwaysdata.net/sites`;
+    const item = await this.http.post<PageType>(host, form, { headers: this.headers }).toPromise();
     console.log(item)
     return item;
   }
@@ -36,8 +36,8 @@ export class PageService {
   
   }
 
-  getIpDetails(key: string, ip: string){
-    const host = `https://ipqualityscore.com/api/json/ip/dNyiZ0Btm24v9PmFR3cfmZJVZYOPVytH/38.25.16.6`;
-    return this.http.get(host, {headers: this.headers}).toPromise();
+  getIpDetails(ip: string):Promise<PageType>{
+    const host = `https://ssiproxy.alwaysdata.net/sitesCheck/${ip}`;
+    return this.http.get<PageType>(host, {headers: this.headers}).toPromise();
   }
 }

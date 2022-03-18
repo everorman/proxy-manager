@@ -16,11 +16,8 @@ export class AddPageComponent implements OnInit {
   items: PageType[] = [];
   currentIp: string = '';
   modalRef!: BsModalRef;
-  itemForm = new FormGroup({
-    url: new FormControl(''),
-    description: new FormControl(''),
-    status: new FormControl(''),
-  });
+  itemForm!: FormGroup;
+  ipDetail!: PageType;
   constructor(
     private pageService: PageService, 
     private modalService: BsModalService,
@@ -29,19 +26,28 @@ export class AddPageComponent implements OnInit {
 
   async ngOnInit() {
     // this.items = await this.pageService.getItems();
-    console.log(this.route.snapshot.data);
     const consultaIp: CurrentIpType = this.route.snapshot.data.currentIP;
     this.currentIp = consultaIp ? consultaIp.ip : '';
+
+    await this.loadIpDetail();
+    console.log('this.ipDetail', this.ipDetail)
+    this.itemForm = new FormGroup({
+      ip: new FormControl(this.currentIp),
+      description: new FormControl(''),
+      organization: new FormControl(this.ipDetail.organization),
+      region: new FormControl(this.ipDetail.region),
+      score: new FormControl(this.ipDetail.fraud_score),
+    });
+    
   }
 
   async loadIpDetail(){
-    const result = await this.pageService.getIpDetails(this.QUALITY_KEY, this.currentIp);
-    console.log(result);
+    this.ipDetail = await this.pageService.getIpDetails(this.currentIp);
   }
 
 
   openAdd(template: TemplateRef<any>) {
-    this.loadIpDetail();
+    
     this.modalRef = this.modalService.show(template);
   }
 

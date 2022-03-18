@@ -10,6 +10,18 @@ export const Routes = [
   },
   {
     method: "get",
+    route: "/sitesCheck/:ip",
+    controller: SiteController,
+    action: "checkApi"
+  },
+  {
+    method: "post",
+    route: "/sites",
+    controller: SiteController,
+    action: "save"
+  },
+  {
+    method: "get",
     route: "/users",
     controller: UserController,
     action: "all"

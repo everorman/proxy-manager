@@ -1,4 +1,6 @@
 # Awesome Project Build with TypeORM
+Create project: 
+`typeorm init --name MyProject --database mysql --express`
 
 Steps to run this project:
 
