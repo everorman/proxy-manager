@@ -23,7 +23,7 @@ export class PageService {
   }
 
   async getItems(): Promise<PageType[]> {
-    const url = 'http://localhost:3000/pages';
+    const url = 'https://ssiproxy.alwaysdata.net/sites';
     const items = await this.http.get<PageType[]>(url, { headers: this.headers }).toPromise();
     console.log(items)
     return items;
