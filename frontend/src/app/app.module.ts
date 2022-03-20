@@ -13,13 +13,15 @@ import { AddPageComponent } from './add-page/add-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CurrentIPResolver } from './resolvers/current-ip.resolver';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [			
     AppComponent,
     HomeComponent,
       ListIPComponent,
-      AddPageComponent
+      AddPageComponent,
+      HeaderComponent
    ],
   imports: [
     BrowserModule,
