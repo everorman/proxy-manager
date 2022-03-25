@@ -4,6 +4,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import {Request, Response} from "express";
 import {Routes} from "./routes";
+import authRoutes from "./routes/auth.routes";
 import { Site, User } from "./entity";
 const cors = require('cors');
 require('dotenv').config()
@@ -15,6 +16,7 @@ createConnection().then(async connection => {
     const app = express();
     app.use(cors());
     app.use(bodyParser.json());
+    app.use("/auth", authRoutes)
     
 
     // register express routes from defined application routes
