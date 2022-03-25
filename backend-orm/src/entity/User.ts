@@ -20,9 +20,6 @@ export class User {
   @Column()
   email: string;
 
-  @Column()
-  age: number;
-
   isValidPasswword = (pws: string) =>{
     return bcrypt.compare(pws, this.password)
   }
