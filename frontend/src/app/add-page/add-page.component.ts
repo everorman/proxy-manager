@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-page.component.scss']
 })
 export class AddPageComponent implements OnInit {
+  dtOptions: DataTables.Settings = {};
   QUALITY_KEY = 'dNyiZ0Btm24v9PmFR3cfmZJVZYOPVytH';
   items: PageType[] = [];
   currentIp: string = '';
@@ -38,6 +39,10 @@ export class AddPageComponent implements OnInit {
       region: new FormControl(this.ipDetail.region),
       score: new FormControl(this.ipDetail.fraud_score),
     });
+
+    this.dtOptions = {
+      pagingType: 'full_numbers'
+    };
     
   }
 

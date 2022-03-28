@@ -15,6 +15,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { CurrentIPResolver } from './resolvers/current-ip.resolver';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [				
@@ -34,7 +35,8 @@ import { LoginComponent } from './login/login.component';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    DataTablesModule
     
   ],
   providers: [],
