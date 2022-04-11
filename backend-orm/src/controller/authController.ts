@@ -15,7 +15,7 @@ export class AuthController extends BaseEntity {
       return
     }
 
-    const userEmailCheck = userRepository.findOne(
+    const userEmailCheck = await userRepository.findOne(
       {
         where:
           { email: email }
@@ -23,6 +23,7 @@ export class AuthController extends BaseEntity {
     );
 
     if(userEmailCheck){
+      console.log(userEmailCheck)
       res.status(403).json({ code: -2, message: "User exist" });
       return
     }
