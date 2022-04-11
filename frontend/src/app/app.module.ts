@@ -17,6 +17,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { ModalBasicComponent } from './modals/modalBasic/modalBasic.component';
 
 @NgModule({
   declarations: [						
@@ -27,6 +28,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
       HeaderComponent,
       LoginComponent,
       ProgressBarComponent,
+      ModalBasicComponent
    ],
   imports: [
     BrowserModule,

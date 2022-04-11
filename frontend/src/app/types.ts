@@ -10,3 +10,11 @@ export type PageType = {
 export type CurrentIpType = {
   ip: string;
 }
+
+export type UserType = {
+  firsName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  passwordRepeat: string;
+}

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { ModalBasicComponent } from '../modals/modalBasic/modalBasic.component';
+import { AuthService } from '../services/auth/auth.service';
 import { ConfirmedValidator } from './confirmed.validator';
 
 @Component({
@@ -10,13 +13,16 @@ import { ConfirmedValidator } from './confirmed.validator';
 export class LoginComponent implements OnInit {
 
   showSigUp = false;
-  userForm:FormGroup = new FormGroup({});
-  
+  userForm: FormGroup = new FormGroup({});
+  bsModalRef?: BsModalRef;
 
-
-  constructor(private fb: FormBuilder) {
+  constructor(private modalService: BsModalService, private fb: FormBuilder,private authService: AuthService) {
     this.userForm = fb.group({
-      name: new FormControl('', [
+      firstName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
+      lastName: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
       ]),
@@ -27,27 +33,42 @@ export class LoginComponent implements OnInit {
       ]),
       password: new FormControl('', Validators.required),
       passwordRepeat: new FormControl('', Validators.required)
-    },{
+    }, {
       validator: ConfirmedValidator('password', 'passwordRepeat')
     })
-   }
+  }
 
   ngOnInit() {
   }
 
-  showSigUpForm(){
+  showSigUpForm() {
     this.showSigUp = !this.showSigUp;
   }
 
-  onSubmit(form: FormGroup) {
-    console.log('Valid?', form.valid); // true or false
-    console.log('Name', form.value.name);
-    console.log('Email', form.value.email);
-    console.log('Password', form.value.password);
-    console.log('Password', form.value.passwordRepeat);
+  openModal(title: string, body: string) {
+    const initialState: ModalOptions = {
+      initialState: {
+        modalBody: body,
+        title: title
+      }
+    };
+    this.bsModalRef = this.modalService.show(ModalBasicComponent, initialState);
+    this.bsModalRef.content.closeBtnName = 'Close';
   }
 
-  get f(){
+  async onSubmit(form: FormGroup) {
+    if(form.valid){
+      try {
+        const result = await this.authService.signUp(form.value);
+        console.log(result);
+      } catch (error) {
+        this.openModal('Error', `The email entered already exists`)
+      }
+      
+    }
+  }
+
+  get f() {
     return this.userForm.controls;
   }
 

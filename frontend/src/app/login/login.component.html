@@ -22,9 +22,16 @@
       <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
 
         <div class="form-outline mb-4">
-          <input name="name" type="text" id="formName" class="fadeIn" placeholder="Your Name *" formControlName="name" />
-          <div class="text-danger" *ngIf="userForm.get('name')!.invalid && (userForm.get('name')!.dirty || userForm.get('name')!.touched)">
+          <input name="firstName" type="text" id="formFirstName" class="fadeIn" placeholder="Your Name *" formControlName="firstName" />
+          <div class="text-danger" *ngIf="userForm.get('firstName')!.invalid && (userForm.get('firstName')!.dirty || userForm.get('firstName')!.touched)">
             <small>Please provide a name.</small>
+          </div>
+        </div>
+        
+        <div class="form-outline mb-4">
+          <input name="lastName" type="text" id="formLastName" class="fadeIn" placeholder="Your lastname *" formControlName="lastName" />
+          <div class="text-danger" *ngIf="userForm.get('lastName')!.invalid && (userForm.get('lastName')!.dirty || userForm.get('lastName')!.touched)">
+            <small>Please provide a lastname.</small>
           </div>
         </div>
 
