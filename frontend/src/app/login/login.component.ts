@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalBasicComponent } from '../modals/modalBasic/modalBasic.component';
 import { AuthService } from '../services/auth/auth.service';
 import { ConfirmedValidator } from './confirmed.validator';
+import { AlertComponent } from 'ngx-bootstrap/alert';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   showSigUp = false;
   userForm: FormGroup = new FormGroup({});
   bsModalRef?: BsModalRef;
+  alerts: any[] = [];
 
   constructor(private modalService: BsModalService, private fb: FormBuilder,private authService: AuthService) {
     this.userForm = fb.group({
@@ -61,11 +63,24 @@ export class LoginComponent implements OnInit {
       try {
         const result = await this.authService.signUp(form.value);
         console.log(result);
+        this.alerts.push({
+          type: 'success',
+          msg: `User registered successfully`,
+          timeout: 3000
+        });
       } catch (error) {
-        this.openModal('Error', `The email entered already exists`)
+        this.alerts.push({
+          type: 'danger',
+          msg: `The email entered already exists`,
+          timeout: 3000
+        });
       }
       
     }
+  }
+
+  onClosed(dismissedAlert: AlertComponent): void {
+    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
   }
 
   get f() {

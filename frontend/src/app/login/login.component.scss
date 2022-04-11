@@ -263,3 +263,9 @@ input[type=text]:placeholder {
 * {
   box-sizing: border-box;
 }
+
+.alert-wrapper{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
