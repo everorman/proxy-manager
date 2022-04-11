@@ -26,8 +26,8 @@ const routes: Routes = [
       currentIP: CurrentIPResolver
     }
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', component: HomeComponent }
+  { path: '', redirectTo: '/add', pathMatch: 'full' },
+  { path: '**', component: AddPageComponent }
 ];
 
 @NgModule({

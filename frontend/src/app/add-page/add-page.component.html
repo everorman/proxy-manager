@@ -1,11 +1,9 @@
-<app-header></app-header>
+<app-header [page]="ipDetail"></app-header>
 
-<div class="container">
+<div class="container position-relative">
+  <button type="button" class="btn float" (click)="openAdd(template)"><i class="text-white bi bi-plus-lg"></i></button>
   <section class="pt-5">
     <p class="text-right"><strong>Current IP:</strong> {{currentIp}}</p>
-    <div class="mb-5">
-      <button type="button" class="btn btn-success" (click)="openAdd(template)">Agregar</button>
-    </div>
     <table *ngIf="items.length" datatable [dtOptions]="dtOptions" class="table table-striped table-dark table-hover">
       <thead>
         <tr>

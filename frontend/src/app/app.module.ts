@@ -16,15 +16,17 @@ import { CurrentIPResolver } from './resolvers/current-ip.resolver';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { DataTablesModule } from 'angular-datatables';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 @NgModule({
-  declarations: [				
+  declarations: [						
     AppComponent,
     HomeComponent,
       ListIPComponent,
       AddPageComponent,
       HeaderComponent,
-      LoginComponent
+      LoginComponent,
+      ProgressBarComponent,
    ],
   imports: [
     BrowserModule,

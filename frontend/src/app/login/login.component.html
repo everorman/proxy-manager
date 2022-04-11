@@ -1,8 +1,10 @@
 <div class="wrapper">
   <div id="formContent" class="fadeInDown">
     <!-- Tabs Titles -->
-    <h2 class="active"> Loging</h2>
-    <h2 class="inactive underlineHover">Registro </h2>
+    <h2 class="active clickable" [ngClass]="{'inactive underlineHover': showSigUp, 'active':!showSigUp}"
+      (click)="showSigUpForm()"> Loging</h2>
+    <h2 class="inactive underlineHover clickable" [ngClass]="{'inactive': !showSigUp, 'active':showSigUp}"
+      (click)="showSigUpForm()">Registro </h2>
 
     <!-- Icon -->
     <div class="login-icon fadeIn first">
@@ -10,11 +12,47 @@
     </div>
 
     <!-- Login Form -->
-    <form>
+    <form *ngIf="!showSigUp; else sigUpBlock">
       <input type="text" id="email" class="fadeIn second" name="email" placeholder="e-mail">
       <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
+
+    <ng-template #sigUpBlock>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+
+        <div class="form-outline mb-4">
+          <input name="name" type="text" id="formName" class="fadeIn" placeholder="Your Name *" formControlName="name" />
+          <div class="text-danger" *ngIf="userForm.get('name')!.invalid && (userForm.get('name')!.dirty || userForm.get('name')!.touched)">
+            <small>Please provide a name.</small>
+          </div>
+        </div>
+
+        <div class="form-outline mb-4">
+          <input type="email" id="formEmail" class="fadeIn" placeholder="Your Email *" formControlName="email"/>
+          <div class="text-danger" *ngIf="userForm.get('email')!.invalid && (userForm.get('email')!.dirty || userForm.get('email')!.touched)">
+            <small>Please provide a email.</small>
+          </div>
+        </div>
+
+        <div class="form-outline mb-4">
+          <input type="password" id="formPass" class="fadeIn" placeholder="Password" formControlName="password"/>
+          <div class="text-danger" *ngIf="userForm.get('password')!.invalid && (userForm.get('password')!.dirty || userForm.get('password')!.touched)">
+            <small>Please provide a passwoord.</small>
+          </div>
+        </div>
+
+        <div class="form-outline mb-4">
+          <input type="password" id="formPassRepeat" class="fadeIn" placeholder="Repeat your password" formControlName="passwordRepeat"/>
+          <div class="text-danger" *ngIf="userForm.get('passwordRepeat')!.invalid && (userForm.get('passwordRepeat')!.dirty || userForm.get('passwordRepeat')!.touched)">
+            <small>Please provide a passwoord.</small>
+          </div>
+          <div class="text-danger" *ngIf="userForm.get('passwordRepeat')!.invalid && f.passwordRepeat.errors?.confirmedValidator"><small>Password and Confirm Password must be match.</small></div>
+        </div>
+
+        <input type="submit" class="fadeIn fourth" value="Log In">
+      </form>
+    </ng-template>
 
     <!-- Remind Passowrd -->
     <div id="formFooter">

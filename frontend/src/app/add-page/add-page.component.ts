@@ -47,7 +47,15 @@ export class AddPageComponent implements OnInit {
   }
 
   async loadIpDetail(){
-    this.ipDetail = await this.pageService.getIpDetails(this.currentIp);
+   
+    const result = await this.pageService.getIpDetails(this.currentIp);
+    this.ipDetail = {
+      ip: this.currentIp,
+      description: '',
+      organization: result.organization,
+      region: result.region,
+      score: result.fraud_score || 0
+    }
   }
 
 

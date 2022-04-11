@@ -4,3 +4,16 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+table{
+  margin-top: 35px;
+  margin: 0px auto;
+  color: white;
+  tr{
+    border-bottom: 1px solid #777777;
+    height: 35px;
+  }
+  tr>td:first-child{
+    width: 150px;
+  }
+}
