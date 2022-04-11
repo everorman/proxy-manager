@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
+import { Site } from "./Site";
 
 @Entity()
 export class User {
@@ -19,6 +20,8 @@ export class User {
 
   @Column()
   email: string;
+
+  @OneToMany(type => Site, site => site.user) sites: Site[]; 
 
   isValidPasswword = (pws: string) =>{
     return bcrypt.compare(pws, this.password)

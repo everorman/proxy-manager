@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class Site {
@@ -20,5 +21,7 @@ export class Site {
 
     @Column()
     score: number;
+
+    @ManyToOne(type => User, user => user.sites) user: User; 
 
 }
