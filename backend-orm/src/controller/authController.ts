@@ -52,7 +52,7 @@ export class AuthController extends BaseEntity {
         res.status(401).send("Invalid password");
         return;
       }
-      res.status(200).json({ accesToken: user.generateJWT() });
+      res.status(200).json({ accesToken: user.generateJWT(), expiresIn: process.env.JWT_EXPIRES_IN  });
     } catch (error) {
       res.status(401).send(error)
     }

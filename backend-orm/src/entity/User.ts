@@ -34,10 +34,11 @@ export class User {
   generateJWT = () => {
     return jwt.sign(
       {
-        email: this.email,
+        id: this.id,
+        email: this.email
       },
       "SECRET",
-      {expiresIn: "24h"}
+      {expiresIn: process.env.JWT_EXPIRES_IN}
     )
   }
 
