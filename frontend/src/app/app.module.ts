@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,10 +13,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
+import { TokenInterceptor } from './interceptors/token-interceptor.service';
 import { ListIPComponent } from './listIP/listIP.component';
 import { LoginComponent } from './login/login.component';
 import { ModalBasicComponent } from './modals/modalBasic/modalBasic.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { AuthenticatedComponent } from './authenticated/authenticated.component';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
       HeaderComponent,
       LoginComponent,
       ProgressBarComponent,
-      ModalBasicComponent
+      ModalBasicComponent,
+      AuthenticatedComponent
    ],
   imports: [
     BrowserModule,
@@ -44,7 +47,13 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     DataTablesModule
     
   ],
-  providers: [],
+  providers: [
+    {  
+      provide: HTTP_INTERCEPTORS,  
+      useClass: TokenInterceptor,  
+      multi: true  
+    }  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

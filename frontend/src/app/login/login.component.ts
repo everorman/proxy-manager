@@ -5,6 +5,7 @@ import { ModalBasicComponent } from '../modals/modalBasic/modalBasic.component';
 import { AuthService } from '../services/auth/auth.service';
 import { ConfirmedValidator } from './confirmed.validator';
 import { AlertComponent } from 'ngx-bootstrap/alert';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +16,23 @@ export class LoginComponent implements OnInit {
 
   showSigUp = false;
   userForm: FormGroup = new FormGroup({});
+  loginForm: FormGroup = new FormGroup({
+    email: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+    ]),
+    password: new FormControl('', Validators.required)
+  });
   bsModalRef?: BsModalRef;
   alerts: any[] = [];
 
-  constructor(private modalService: BsModalService, private fb: FormBuilder,private authService: AuthService) {
+  constructor(
+    private modalService: BsModalService,
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+  ) {
     this.userForm = fb.group({
       firstName: new FormControl('', [
         Validators.required,
@@ -59,7 +73,7 @@ export class LoginComponent implements OnInit {
   }
 
   async onSubmit(form: FormGroup) {
-    if(form.valid){
+    if (form.valid) {
       try {
         const result = await this.authService.signUp(form.value);
         console.log(result);
@@ -75,7 +89,19 @@ export class LoginComponent implements OnInit {
           timeout: 3000
         });
       }
-      
+
+    }
+  }
+
+  async login() {
+    const val = this.loginForm.value;
+
+    if (val.email && val.password) {
+      const result = await this.authService.signIn(val.email, val.password)
+      if (result) {
+        console.log("login result", result);
+        this.router.navigateByUrl('/app');
+      }
     }
   }
 

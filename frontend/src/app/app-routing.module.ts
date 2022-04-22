@@ -16,18 +16,11 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'list',
-    component: ListIPComponent
+    path: 'app',
+    loadChildren: () => import('./authenticated/authenticated-routing.module').then(m => m.AuthenticatedRoutingModule),
   },
-  {
-    path: 'add',
-    component: AddPageComponent,
-    resolve: {
-      currentIP: CurrentIPResolver
-    }
-  },
-  { path: '', redirectTo: '/add', pathMatch: 'full' },
-  { path: '**', component: AddPageComponent }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', component: HomeComponent }
 ];
 
 @NgModule({

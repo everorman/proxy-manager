@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
     this.http.get('https://proxy.everorman.com/api.php').toPromise()
     .then((result) => {
       console.warn(result);
-      alert('La rotación puede demorar 1 minuto para completarse.');
+      alert('The rotation may take 1 minute to complete.');
     }).catch((err) => {
-      alert('Ocurrió un error.')
+      alert('An error occurred.')
       console.log(err);
     }).finally(() => {
       this.spinner.hide();
