@@ -61,7 +61,7 @@ export class AuthService {
   }
 
   async getCurrentUserDetail(): Promise<UserType>{
-    const host = `${environment.apiHost}/auth/profile`;
+    const host = `${environment.apiHost}/user/profile`;
     this.spinner.show();
     try {
       const result = await this.http.post<UserType>(host, { headers: this.headers }).toPromise();
@@ -76,14 +76,13 @@ export class AuthService {
   }
 
   private setSession(authResult: AuthJwtType) {
-    const expiresAt = moment().add(authResult.expiresIn, 'second');
     this.tokenStorage.saveToken(authResult.accesToken);
-    localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
   }
 
   logout() {
-    localStorage.removeItem("id_token");
-    localStorage.removeItem("expires_at");
+    // localStorage.removeItem("id_token");
+    // localStorage.removeItem("expires_at");
+    this.tokenStorage.cleanUser();
   }
 
   public isLoggedIn() {
@@ -95,11 +94,9 @@ export class AuthService {
   }
 
   getExpiration() {
-    const expiration = localStorage.getItem("expires_at") || '';
+    const expiration = this.tokenStorage.getExpiresAt() || '';
     const expiresAt = JSON.parse(expiration);
     return moment(expiresAt);
   }
-
-
 
 }
