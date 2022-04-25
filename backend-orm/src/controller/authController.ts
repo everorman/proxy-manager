@@ -4,18 +4,18 @@ import { User } from "../entity";
 
 
 export class AuthController extends BaseEntity {
-
-  static register = async (req: Request, res: Response) => {
+  userRepository = getRepository(User);
+  register = async (req: Request, res: Response) => {
     const { firstName, lastName, email, password, passwordRepeat } = req.body;
     const user = new User();
-    const userRepository = getRepository(User);
+   
 
     if (password !== passwordRepeat) {
       res.status(403).json({ code: -1, message: "Password and Confirm Password must be match" });
       return
     }
 
-    const userEmailCheck = await userRepository.findOne(
+    const userEmailCheck = await this.userRepository.findOne(
       {
         where:
           { email: email }
@@ -34,7 +34,7 @@ export class AuthController extends BaseEntity {
 
 
     try {
-      await userRepository.save(user);
+      await this.userRepository.save(user);
     } catch (error) {
       res.status(409).send("User allready exist");
       return;
@@ -43,17 +43,27 @@ export class AuthController extends BaseEntity {
     res.status(200).json(user)
   }
 
-  static login = async (req: Request, res: Response) => {
+  login = async (req: Request, res: Response) => {
+    console.log(req.body)
     const { email, password } = req.body;
-    const userRepository = getRepository(User);
+    
     try {
-      const user = await userRepository.findOne({ email: email });
+      const user = await this.userRepository.findOne({ email: email });
+      console.log('user', user);
+      if(!user){
+        res.status(401).send("Invalid email");
+        return;
+      }
+      
       if (user && !user.isValidPasswword(password)) {
+        console.log('User incorrect');
         res.status(401).send("Invalid password");
         return;
       }
+      console.log(user);
       res.status(200).json({ accesToken: user.generateJWT(), expiresIn: process.env.JWT_EXPIRES_IN  });
     } catch (error) {
+      console.log('Por aqui', error)
       res.status(401).send(error)
     }
   }

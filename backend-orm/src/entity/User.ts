@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "ty
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import { Site } from "./Site";
+import config from "../config/config";
 
 @Entity()
 export class User {
@@ -37,7 +38,7 @@ export class User {
         id: this.id,
         email: this.email
       },
-      "SECRET",
+      config.jwtSecret,
       {expiresIn: process.env.JWT_EXPIRES_IN}
     )
   }

@@ -1,24 +1,19 @@
 import { UserController } from "../controller";
+import { checkJwt } from "../middlewares/checkJwt";
 
 export const UserRoutes = [
   {
-    method: "get",
-    route: "/users",
-    controller: UserController,
-    action: "all"
-  }, {
-    method: "get",
-    route: "/users/:id",
-    controller: UserController,
-    action: "one"
-  }, {
     method: "post",
     route: "/users",
     controller: UserController,
-    action: "save"
-  }, {
-    method: "delete",
-    route: "/users/:id",
+    action: "save",
+    check: []
+  },
+  {
+    method: "post",
+    route: "/user/profile",
     controller: UserController,
-    action: "remove"
-  }]
+    action: "profile",
+    check: [checkJwt]
+  }
+]

@@ -1,12 +1,11 @@
+import * as bodyParser from "body-parser";
+import * as cors from "cors";
+import * as express from "express";
+import { Request, Response } from "express";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import * as express from "express";
-import * as bodyParser from "body-parser";
-import { Request, Response } from "express";
+import { Site } from "./entity";
 import { Routes } from "./routes";
-import authRoutes from "./routes/auth.routes";
-import { Site, User } from "./entity";
-import * as cors from "cors";
 require('dotenv').config()
 
 
@@ -16,20 +15,32 @@ createConnection().then(async connection => {
   const app = express();
   app.use(cors());
   app.use(bodyParser.json());
-  app.use("/auth", authRoutes)
 
 
   // register express routes from defined application routes
   Routes.forEach(route => {
-    (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
-      const result = (new (route.controller as any))[route.action](req, res, next);
-      if (result instanceof Promise) {
-        result.then(result => result !== null && result !== undefined ? res.send(result) : undefined);
-
-      } else if (result !== null && result !== undefined) {
-        res.json(result);
-      }
-    });
+    if(route.check.length){
+      (app as any)[route.method](route.route, route.check, (req: Request, res: Response, next: Function) => {
+        const result = (new (route.controller as any))[route.action](req, res, next);
+        if (result instanceof Promise) {
+          result.then(result => result !== null && result !== undefined ? res.send(result) : undefined);
+  
+        } else if (result !== null && result !== undefined) {
+          res.json(result);
+        }
+      });
+    }else{
+      (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
+        const result = (new (route.controller as any))[route.action](req, res, next);
+        if (result instanceof Promise) {
+          result.then(result => result !== null && result !== undefined ? res.send(result) : undefined);
+  
+        } else if (result !== null && result !== undefined) {
+          res.json(result);
+        }
+      });
+    }
+    
   });
 
   // setup express app here
