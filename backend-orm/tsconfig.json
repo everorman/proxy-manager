@@ -7,9 +7,9 @@
       "target": "es5",
       "module": "commonjs",
       "moduleResolution": "node",
-      "outDir": "./src/build",
+      "outDir": "./build",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "sourceMap": true
+      "sourceMap": true,
    }
 }
