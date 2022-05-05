@@ -6,23 +6,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AddPageComponent } from './add-page/add-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthenticatedComponent } from './authenticated/authenticated.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { TokenInterceptor } from './interceptors/token-interceptor.service';
 import { ListIPComponent } from './listIP/listIP.component';
 import { LoginComponent } from './login/login.component';
 import { ModalBasicComponent } from './modals/modalBasic/modalBasic.component';
+import { NavBarTopComponent } from './nav-bar-top/nav-bar-top.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
-import { AuthenticatedComponent } from './authenticated/authenticated.component';
 
 
 @NgModule({
-  declarations: [						
+  declarations: [							
     AppComponent,
     HomeComponent,
       ListIPComponent,
@@ -31,7 +33,8 @@ import { AuthenticatedComponent } from './authenticated/authenticated.component'
       LoginComponent,
       ProgressBarComponent,
       ModalBasicComponent,
-      AuthenticatedComponent
+      AuthenticatedComponent,
+      NavBarTopComponent
    ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { AuthenticatedComponent } from './authenticated/authenticated.component'
     ReactiveFormsModule,
     ModalModule.forRoot(),
     AlertModule.forRoot(),
-    DataTablesModule
+    DataTablesModule,
+    BsDropdownModule.forRoot()
     
   ],
   providers: [

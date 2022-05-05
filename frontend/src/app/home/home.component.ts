@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit {
     // setTimeout(() => {
     //   this.spinner.hide();
     // }, 3000);
-    this.http.get('https://proxy.everorman.com/api.php').toPromise()
+    const host = `${environment.apiHost}/extras/rotate`;
+    this.http.get(host).toPromise()
     .then((result) => {
       console.warn(result);
       alert('The rotation may take 1 minute to complete.');

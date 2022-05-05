@@ -4,7 +4,7 @@
  header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
  header('Access-Control-Max-Age: 1000');
  header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
-$url = "https://client-api.mobinet.io/device/rotate?hash=hiM3EeADjwmKgQ0adLx9dqNYy302xr7nLXPQ3TcxCYjMqAyBKLZ2wxKTLil1It2J&api_key=tzjPwsq7VJli8dOHVHorfCjRnRBjqUGV";
+$url = "https://client-api.mobinet.io/device/rotate?hash=M6L1jIpYJI5gmqLRxXIRXZacNDJQO0JuPhD6RWyJurq58-lVWL0As8bv6IjKC60D&api_key=tzjPwsq7VJli8dOHVHorfCjRnRBjqUGV";
 
 $curl = curl_init($url);
 curl_setopt($curl, CURLOPT_URL, $url);
