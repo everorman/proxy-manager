@@ -5,6 +5,7 @@ export type PageType = {
   ip: string;
   score: number;
   fraud_score?: number;
+  id? :string;
 }
 
 export type CurrentIpType = {
@@ -22,4 +23,10 @@ export type UserRegisterType = {
 export type AuthJwtType = {
   accesToken: string;
   expiresIn: string;
+}
+
+export type StatusRequestType = {
+  code: -1|-2|1;
+  message: string;
+  data: any;
 }

@@ -1,10 +1,12 @@
-<app-header [page]="ipDetail"></app-header>
+<app-header [page]="ipRemoteDetail"></app-header>
 
 <div class="container position-relative">
-  <button type="button" class="btn float" (click)="openAdd(template)"><i class="text-white bi bi-plus-lg"></i></button>
+  <div class="d-flex position-relative mb-5" style="margin-top: -40px;">
+    <button type="button" class="btn float" (click)="openAdd(template)"><i class="text-white bi bi-plus-lg"></i></button>
+  </div>
   <section class="pt-5">
     <p class="text-right"><strong>Current IP:</strong> {{currentIp}}</p>
-    <table *ngIf="items.length" datatable [dtOptions]="dtOptions" class="table table-striped table-dark table-hover">
+    <table *ngIf="items.length" class="table table-striped table-dark table-hover">
       <thead>
         <tr>
           <th scope="col">Url</th>
@@ -21,15 +23,20 @@
       </tbody>
     </table>
   </section>
-  
+
   <ng-template #template>
     <div class="modal-header">
-      <h4 class="modal-title pull-left">Modal</h4>
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
       </button>
     </div>
     <div class="modal-body">
+      <div *ngIf="ipRecord">
+        <alert type="success">
+          The <strong>ip:{{ipRecord.ip}}</strong> is registered
+        </alert>
+
+      </div>
       <form [formGroup]="itemForm" (ngSubmit)="addItem()">
         <div class="form-group">
           <label for="nombreInput">Ip</label>
@@ -38,6 +45,11 @@
         <div class="form-group">
           <label for="islaInput">Descripcción</label>
           <input class="form-control" type="text" formControlName="description">
+          <br *ngIf="ipRecord">
+          <div *ngIf="ipRecord">
+            <label>This IP is regitered for: </label>
+            <input class="form-control" type="text" value="{{ipRecord.description}}" disabled>
+          </div>
         </div>
         <div class="form-group">
           <label for="islaInput">Organización</label>
@@ -50,14 +62,14 @@
         <div class="form-group">
           <label>Score</label>
           <input class="form-control" type="text" formControlName="score">
-          
+
         </div>
-      
-  
+
+
       </form>
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-success" (click)="addItem()" >Unirme</button>
+      <button type="submit" class="btn btn-success" (click)="addItem()">Save</button>
     </div>
   </ng-template>
 </div>

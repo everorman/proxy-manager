@@ -11,6 +11,13 @@ export const SitesRoutes = [
   },
   {
     method: "get",
+    route: "/siteByIp/:ip",
+    controller: SiteController,
+    action: "getByIp",
+    check: [checkJwt]
+  },
+  {
+    method: "get",
     route: "/sitesCheck/:ip",
     controller: SiteController,
     action: "checkApi",
@@ -21,6 +28,13 @@ export const SitesRoutes = [
     route: "/sites",
     controller: SiteController,
     action: "save",
+    check: [checkJwt]
+  },
+  {
+    method: "post",
+    route: "/site/update",
+    controller: SiteController,
+    action: "update",
     check: [checkJwt]
   },
 ]

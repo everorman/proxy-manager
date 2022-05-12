@@ -24,8 +24,10 @@ export class User {
 
   @OneToMany(type => Site, site => site.user) sites: Site[]; 
 
-  isValidPasswword = (pws: string) =>{
-    return bcrypt.compare(pws, this.password)
+   isValidPasswword = async (pws: string) =>{
+    const result = await bcrypt.compare(pws, this.password);
+    console.log('Password correctas ', result);
+    return result;
   }
 
   setPassword = (password: string) => {

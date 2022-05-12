@@ -7,6 +7,7 @@ import { UserType } from 'src/app/authenticated/types';
 import { AuthJwtType, UserRegisterType } from 'src/app/types';
 import { environment } from 'src/environments/environment';
 import { TokenStorageService } from '../tokenStorage/token-storage.service';
+import { StatusRequestType } from '../../types';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,10 @@ export class AuthService {
   });
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private spinner: NgxSpinnerService,
-    private tokenStorage:TokenStorageService
-    ) { }
+    private tokenStorage: TokenStorageService
+  ) { }
 
   async signUp(form: UserRegisterType) {
     const host = `${environment.apiHost}/auth/register`;
@@ -48,8 +49,10 @@ export class AuthService {
     const host = `${environment.apiHost}/auth/login`;
     this.spinner.show();
     try {
-      const result = await this.http.post<AuthJwtType>(host, { email, password }).toPromise();
-      this.setSession(result);
+      const result = await this.http.post<StatusRequestType>(host, { email, password }).toPromise();
+      if (result.code > 0) {
+        this.setSession((result.data as AuthJwtType));
+      }
       return result;
     } catch (error) {
       console.error("Error al iniciar sesion", error);
@@ -60,7 +63,7 @@ export class AuthService {
 
   }
 
-  async getCurrentUserDetail(): Promise<UserType>{
+  async getCurrentUserDetail(): Promise<UserType> {
     const host = `${environment.apiHost}/user/profile`;
     this.spinner.show();
     try {
@@ -77,6 +80,7 @@ export class AuthService {
 
   private setSession(authResult: AuthJwtType) {
     this.tokenStorage.saveToken(authResult.accesToken);
+    this.tokenStorage.saveExpiresAt(authResult.expiresIn);
   }
 
   logout() {
@@ -86,7 +90,7 @@ export class AuthService {
   }
 
   public isLoggedIn() {
-    return moment().isBefore(this.getExpiration());
+    return this.tokenStorage.getToken();
   }
 
   isLoggedOut() {
@@ -95,6 +99,7 @@ export class AuthService {
 
   getExpiration() {
     const expiration = this.tokenStorage.getExpiresAt() || '';
+    console.log(expiration);
     const expiresAt = JSON.parse(expiration);
     return moment(expiresAt);
   }

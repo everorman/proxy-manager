@@ -55,6 +55,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/app');
+    }
   }
 
   showSigUpForm() {
@@ -98,9 +101,16 @@ export class LoginComponent implements OnInit {
 
     if (val.email && val.password) {
       const result = await this.authService.signIn(val.email, val.password)
-      if (result) {
+      console.log(result)
+      if (result.code > 0) {
         console.log("login result", result);
         this.router.navigateByUrl('/app');
+      } else {
+        this.alerts.push({
+          type: 'danger',
+          msg: result.message,
+          timeout: 5000
+        });
       }
     }
   }

@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
 import { CurrentIpType, PageType } from '../types';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -18,12 +19,22 @@ export class AddPageComponent implements OnInit {
   currentIp: string = '';
   modalRef!: BsModalRef;
   itemForm!: FormGroup;
-  ipDetail!: PageType;
+  ipRemoteDetail!: PageType;
+  ipRecord!:PageType;
   constructor(
     private pageService: PageService, 
     private modalService: BsModalService,
-    private route: ActivatedRoute
-    ) { }
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
+    ) {
+      // this.itemForm = new FormGroup({
+      //   ip: new FormControl(this.currentIp),
+      //   description: new FormControl(''),
+      //   organization: new FormControl(''),
+      //   region: new FormControl(''),
+      //   score: new FormControl(''),
+      // });
+    }
 
   async ngOnInit() {
     this.items = await this.pageService.getItems();
@@ -31,14 +42,16 @@ export class AddPageComponent implements OnInit {
     this.currentIp = consultaIp ? consultaIp.ip : '';
 
     await this.loadIpDetail();
-    console.log('this.ipDetail', this.ipDetail)
+    await this.getIpRecord();
+    console.log('this.ipDetail', this.ipRemoteDetail)
     this.itemForm = new FormGroup({
       ip: new FormControl(this.currentIp),
       description: new FormControl(''),
-      organization: new FormControl(this.ipDetail.organization),
-      region: new FormControl(this.ipDetail.region),
-      score: new FormControl(this.ipDetail.fraud_score),
+      organization: new FormControl(this.ipRemoteDetail.organization),
+      region: new FormControl(this.ipRemoteDetail.region),
+      score: new FormControl(this.ipRemoteDetail.score),
     });
+    
 
     this.dtOptions = {
       pagingType: 'full_numbers'
@@ -46,10 +59,9 @@ export class AddPageComponent implements OnInit {
     
   }
 
-  async loadIpDetail(){
-   
+  private async loadIpDetail(){
     const result = await this.pageService.getIpDetails(this.currentIp);
-    this.ipDetail = {
+    this.ipRemoteDetail = {
       ip: this.currentIp,
       description: '',
       organization: result.organization,
@@ -58,18 +70,33 @@ export class AddPageComponent implements OnInit {
     }
   }
 
+  private async getIpRecord(){
+    const result = await this.pageService.getSite(this.currentIp);
+    this.ipRecord = result;
+  }
+
+  
+
 
   openAdd(template: TemplateRef<any>) {
-    
     this.modalRef = this.modalService.show(template);
   }
 
   async addItem() {
+    
+    this.spinner.show;
     this.modalRef.hide();
-
-    await this.pageService.addItem(this.itemForm.value)
+    if(this.ipRecord && (this.ipRecord.ip === this.itemForm.value.ip)){
+      await this.pageService.updateSite({...this.itemForm.value, id:this.ipRecord.id});
+    }else{
+      const checkIfIpExist:PageType = await this.pageService.getSite(this.itemForm.value.ip);
+      if(checkIfIpExist){
+        await this.pageService.updateSite({...this.itemForm.value, id:checkIfIpExist.id});
+      }
+      await this.pageService.addItem(this.itemForm.value)
+    }
     this.items = await this.pageService.getItems();
-    console.log('Guardando...', this.itemForm.value);
+    this.spinner.hide();
   }
 
 

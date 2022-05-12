@@ -51,20 +51,14 @@ export class AuthController extends BaseEntity {
       const user = await this.userRepository.findOne({ email: email });
       console.log('user', user);
       if(!user){
-        res.status(401).send("Invalid email");
-        return;
+        return {code: -2, message: "Invalid user"}
       }
-      
-      if (user && !user.isValidPasswword(password)) {
-        console.log('User incorrect');
-        res.status(401).send("Invalid password");
-        return;
+      if (user && !(await user.isValidPasswword(password))) {
+        return {code: -1, message: "Invalid password"}
       }
-      console.log(user);
-      res.status(200).json({ accesToken: user.generateJWT(), expiresIn: process.env.JWT_EXPIRES_IN  });
+      return { code: 1, data: {accesToken: user.generateJWT(), expiresIn: process.env.JWT_EXPIRES_IN} };
     } catch (error) {
-      console.log('Por aqui', error)
-      res.status(401).send(error)
+      return error;
     }
   }
 
