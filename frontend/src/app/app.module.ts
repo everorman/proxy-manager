@@ -4,23 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DataTablesModule } from 'angular-datatables';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { AddPageComponent } from './add-page/add-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthenticatedComponent } from './authenticated/authenticated.component';
-import { HeaderComponent } from './header/header.component';
+import { AuthenticatedModule } from './authenticated/authenticated.module';
 import { HomeComponent } from './home/home.component';
 import { TokenInterceptor } from './interceptors/token-interceptor.service';
 import { ListIPComponent } from './listIP/listIP.component';
 import { LoginComponent } from './login/login.component';
 import { ModalBasicComponent } from './modals/modalBasic/modalBasic.component';
-import { NavBarTopComponent } from './nav-bar-top/nav-bar-top.component';
-import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 
 @NgModule({
@@ -28,15 +23,13 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     AppComponent,
     HomeComponent,
       ListIPComponent,
-      AddPageComponent,
-      HeaderComponent,
       LoginComponent,
-      ProgressBarComponent,
       ModalBasicComponent,
-      AuthenticatedComponent,
-      NavBarTopComponent
    ],
   imports: [
+    ModalModule.forRoot(),
+    AlertModule.forRoot(),
+    BsDropdownModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -45,11 +38,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    ModalModule.forRoot(),
-    AlertModule.forRoot(),
-    DataTablesModule,
-    BsDropdownModule.forRoot()
-    
+    AuthenticatedModule
   ],
   providers: [
     {  
