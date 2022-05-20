@@ -3,7 +3,7 @@ import { checkJwt } from "../middlewares/checkJwt";
 
 export const SitesRoutes = [
   {
-    method: "get",
+    method: "post",
     route: "/sites",
     controller: SiteController,
     action: "all",
@@ -25,7 +25,7 @@ export const SitesRoutes = [
   },
   {
     method: "post",
-    route: "/sites",
+    route: "/sites/add",
     controller: SiteController,
     action: "save",
     check: [checkJwt]
