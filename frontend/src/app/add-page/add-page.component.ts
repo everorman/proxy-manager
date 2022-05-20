@@ -5,6 +5,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { CurrentIpType, PageType } from '../types';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { AlertComponent } from 'ngx-bootstrap/alert';
 
 
 @Component({
@@ -19,31 +21,33 @@ export class AddPageComponent implements OnInit {
   currentIp: string = '';
   modalRef!: BsModalRef;
   itemForm!: FormGroup;
+  searchForm = new FormGroup({
+    seachText: new FormControl(''),
+  });;
   ipRemoteDetail!: PageType;
   ipRecord!:PageType;
+  totalPages: number = 0;
+  currentPage: number = 0;
+  alerts: any[] = [];
   constructor(
     private pageService: PageService, 
     private modalService: BsModalService,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService
     ) {
-      // this.itemForm = new FormGroup({
-      //   ip: new FormControl(this.currentIp),
-      //   description: new FormControl(''),
-      //   organization: new FormControl(''),
-      //   region: new FormControl(''),
-      //   score: new FormControl(''),
-      // });
+      
     }
 
   async ngOnInit() {
-    this.items = await this.pageService.getItems();
+    const resultRequest =  await this.pageService.getItems();
+    this.totalPages = resultRequest.totalPages;
+    this.currentPage = resultRequest.currentPage;
+    this.items = resultRequest.result;
     const consultaIp: CurrentIpType = this.route.snapshot.data.currentIP;
     this.currentIp = consultaIp ? consultaIp.ip : '';
 
     await this.loadIpDetail();
     await this.getIpRecord();
-    console.log('this.ipDetail', this.ipRemoteDetail)
     this.itemForm = new FormGroup({
       ip: new FormControl(this.currentIp),
       description: new FormControl(''),
@@ -51,7 +55,6 @@ export class AddPageComponent implements OnInit {
       region: new FormControl(this.ipRemoteDetail.region),
       score: new FormControl(this.ipRemoteDetail.score),
     });
-    
 
     this.dtOptions = {
       pagingType: 'full_numbers'
@@ -90,13 +93,36 @@ export class AddPageComponent implements OnInit {
       await this.pageService.updateSite({...this.itemForm.value, id:this.ipRecord.id});
     }else{
       const checkIfIpExist:PageType = await this.pageService.getSite(this.itemForm.value.ip);
+      console.log('Existe:', checkIfIpExist)
       if(checkIfIpExist){
         await this.pageService.updateSite({...this.itemForm.value, id:checkIfIpExist.id});
       }
       await this.pageService.addItem(this.itemForm.value)
     }
-    this.items = await this.pageService.getItems();
     this.spinner.hide();
+  }
+
+  async pageChanged(event: PageChangedEvent) {
+    this.spinner.show();
+    const resultRequest =  await this.pageService.getItems(event.page);
+    this.totalPages = resultRequest.totalPages;
+    // this.currentPage = resultRequest.currentPage;
+    this.items = resultRequest.result;
+    this.spinner.hide();
+  }
+
+  async search(){
+    this.spinner.show();
+    const {seachText} = this.searchForm.value
+    const resultRequest =  await this.pageService.seachIp(1,seachText);
+    this.totalPages = resultRequest.totalPages;
+    this.currentPage = resultRequest.currentPage;
+    this.items = resultRequest.result;
+    this.spinner.hide();
+  }
+
+  onClosed(dismissedAlert: AlertComponent): void {
+    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
   }
 
 

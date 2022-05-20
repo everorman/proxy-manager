@@ -19,13 +19,13 @@ import { ModalBasicComponent } from './modals/modalBasic/modalBasic.component';
 
 
 @NgModule({
-  declarations: [							
+  declarations: [
     AppComponent,
     HomeComponent,
-      ListIPComponent,
-      LoginComponent,
-      ModalBasicComponent,
-   ],
+    ListIPComponent,
+    LoginComponent,
+    ModalBasicComponent,
+  ],
   imports: [
     ModalModule.forRoot(),
     AlertModule.forRoot(),
@@ -41,11 +41,11 @@ import { ModalBasicComponent } from './modals/modalBasic/modalBasic.component';
     AuthenticatedModule
   ],
   providers: [
-    {  
-      provide: HTTP_INTERCEPTORS,  
-      useClass: TokenInterceptor,  
-      multi: true  
-    }  
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

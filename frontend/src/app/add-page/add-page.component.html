@@ -1,12 +1,22 @@
 <app-header [page]="ipRemoteDetail"></app-header>
-
+<div class="alert-wrapper">
+  <div *ngFor="let alert of alerts" >
+    <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" [dismissible]="true" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+  </div>
+</div>
 <div class="container position-relative">
   <div class="d-flex position-relative mb-5" style="margin-top: -40px;">
     <button type="button" class="btn float" (click)="openAdd(template)"><i class="text-white bi bi-plus-lg"></i></button>
   </div>
   <section class="pt-5">
     <p class="text-right"><strong>Current IP:</strong> {{currentIp}}</p>
-    <table *ngIf="items.length" class="table table-striped table-dark table-hover">
+    <div class="md-form mt-0 mb-3 search-form">
+      <form [formGroup]="searchForm" (ngSubmit)="search()">
+        <input class="form-control" type="text" placeholder="Search" formControlName="seachText" aria-label="Search" (change)="search()">
+      </form>
+      
+    </div>
+    <table  class="table table-striped table-dark table-hover">
       <thead>
         <tr>
           <th scope="col">Url</th>
@@ -22,6 +32,8 @@
         </tr>
       </tbody>
     </table>
+    <p>Total:{{totalPages}}</p>
+    <pagination *ngIf="items.length" [totalItems]="totalPages" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
   </section>
 
   <ng-template #template>

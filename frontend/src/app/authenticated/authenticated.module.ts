@@ -17,6 +17,8 @@ import { AppRoutingModule } from '../app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticatedComponent } from './authenticated.component';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+
 
 
 
@@ -34,6 +36,7 @@ import { AuthenticatedComponent } from './authenticated.component';
     ModalModule.forRoot(),
     AlertModule.forRoot(),
     BsDropdownModule.forRoot(),
+    PaginationModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,

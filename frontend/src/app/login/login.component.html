@@ -9,7 +9,7 @@
     <!-- Tabs Titles -->
     <h2 class="active clickable" [ngClass]="{'inactive underlineHover': showSigUp, 'active':!showSigUp}"
       (click)="showSigUpForm()"> Loging</h2>
-    <h2 class="inactive underlineHover clickable" [ngClass]="{'inactive': !showSigUp, 'active':showSigUp}"
+    <h2 *ngIf="false" class="inactive underlineHover clickable" [ngClass]="{'inactive': !showSigUp, 'active':showSigUp}"
       (click)="showSigUpForm()">Registro </h2>
 
     <!-- Icon -->
@@ -28,7 +28,7 @@
     </form>
 
     <ng-template #sigUpBlock>
-      <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)">
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm)" *ngIf="false">
 
         <div class="form-outline mb-4">
           <input name="firstName" type="text" id="formFirstName" class="fadeIn" placeholder="Your Name *" formControlName="firstName" />

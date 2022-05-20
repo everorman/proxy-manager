@@ -30,3 +30,9 @@ export type StatusRequestType = {
   message: string;
   data: any;
 }
+
+export type PaginationRequestType = {
+  currentPage: number;
+  totalPages: number;
+  result: PageType[]
+}

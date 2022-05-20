@@ -68,7 +68,6 @@ export class AuthService {
     this.spinner.show();
     try {
       const result = await this.http.post<UserType>(host, { headers: this.headers }).toPromise();
-      console.log(result)
       return result;
     } catch (err) {
       console.log(err)

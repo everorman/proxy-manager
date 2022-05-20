@@ -1,16 +1,23 @@
 $float-brn-size: 80px;
 
-.float{
-	width: $float-brn-size;
-	height: $float-brn-size;
-	bottom:40px;
-	right:40px;
-	background-color:#0C9;
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 2px 2px 3px #999;
+.float {
+  width: $float-brn-size;
+  height: $float-brn-size;
+  bottom: 40px;
+  right: 40px;
+  background-color: #0c9;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  box-shadow: 2px 2px 3px #999;
   position: absolute;
   font-size: 24px;
   top: -7%;
+}
+
+.search-form {
+  max-width: 25%;
+  @media only screen and (max-width: 576px) {
+    max-width: 100%;
+  }
 }
