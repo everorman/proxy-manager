@@ -101,6 +101,11 @@ export class AddPageComponent implements OnInit {
       }
       await this.pageService.addItem(this.itemForm.value)
     }
+    this.alerts.push({
+      type: 'success',
+      msg: `Ip registered successfully`,
+      timeout: 3000
+    });
     this.spinner.hide();
   }
 

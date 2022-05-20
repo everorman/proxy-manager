@@ -32,8 +32,8 @@
         </tr>
       </tbody>
     </table>
-    <p>Total:{{totalPages}}</p>
-    <pagination *ngIf="items.length" [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+    <p>Total:{{totalItems}} records</p>
+    <pagination *ngIf="items.length" [boundaryLinks]="true" [maxSize]="5" [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
   </section>
 
   <ng-template #template>
