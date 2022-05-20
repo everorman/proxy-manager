@@ -23,6 +23,7 @@ export class SiteController {
     return {
       result,
       totalPages: Math.ceil(count / limit),
+      totalItems: count,
       currentPage: page
     }
   }

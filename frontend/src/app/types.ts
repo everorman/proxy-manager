@@ -34,5 +34,6 @@ export type StatusRequestType = {
 export type PaginationRequestType = {
   currentPage: number;
   totalPages: number;
+  totalItems?: number;
   result: PageType[]
 }

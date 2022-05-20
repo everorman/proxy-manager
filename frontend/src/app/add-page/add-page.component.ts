@@ -27,6 +27,7 @@ export class AddPageComponent implements OnInit {
   ipRemoteDetail!: PageType;
   ipRecord!:PageType;
   totalPages: number = 0;
+  totalItems: number = 0;
   currentPage: number = 0;
   alerts: any[] = [];
   constructor(
@@ -42,6 +43,7 @@ export class AddPageComponent implements OnInit {
     const resultRequest =  await this.pageService.getItems();
     this.totalPages = resultRequest.totalPages;
     this.currentPage = resultRequest.currentPage;
+    this.totalItems = resultRequest.totalItems || 0;
     this.items = resultRequest.result;
     const consultaIp: CurrentIpType = this.route.snapshot.data.currentIP;
     this.currentIp = consultaIp ? consultaIp.ip : '';

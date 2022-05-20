@@ -33,7 +33,7 @@
       </tbody>
     </table>
     <p>Total:{{totalPages}}</p>
-    <pagination *ngIf="items.length" [totalItems]="totalPages" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
+    <pagination *ngIf="items.length" [totalItems]="totalItems" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"></pagination>
   </section>
 
   <ng-template #template>
