@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthenticatedModule } from './authenticated/authenticated.module';
 import { HomeComponent } from './home/home.component';
+import { RotateComponent } from './rotate/rotate.component';
 import { TokenInterceptor } from './interceptors/token-interceptor.service';
 import { ListIPComponent } from './listIP/listIP.component';
 import { LoginComponent } from './login/login.component';
@@ -22,6 +23,7 @@ import { ModalBasicComponent } from './modals/modalBasic/modalBasic.component';
   declarations: [
     AppComponent,
     HomeComponent,
+    RotateComponent,
     ListIPComponent,
     LoginComponent,
     ModalBasicComponent,
