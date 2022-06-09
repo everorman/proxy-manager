@@ -2,7 +2,14 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "ty
 import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import { Site } from "./Site";
+import { Proxy } from "./Proxy";
 import config from "../config/config";
+
+export enum UserRole {
+  ADMIN = "admin",
+  EDITOR = "editor",
+  GHOST = "ghost",
+}
 
 @Entity()
 export class User {
@@ -22,9 +29,18 @@ export class User {
   @Column()
   email: string;
 
-  @OneToMany(type => Site, site => site.user) sites: Site[]; 
+  @Column({
+    type: "set",
+    enum: UserRole,
+    default: [UserRole.GHOST, UserRole.EDITOR],
+  })
+  roles: UserRole[]
 
-   isValidPasswword = async (pws: string) =>{
+  @OneToMany(type => Site, site => site.user) sites: Site[];
+
+  @OneToMany(type => Proxy, proxy => proxy.user) proxies: Proxy[];
+
+  isValidPasswword = async (pws: string) => {
     const result = await bcrypt.compare(pws, this.password);
     console.log('Password correctas ', result);
     return result;
@@ -37,11 +53,11 @@ export class User {
   generateJWT = () => {
     return jwt.sign(
       {
-        id: this.id,
+        userId: this.id,
         email: this.email
       },
       config.jwtSecret,
-      {expiresIn: process.env.JWT_EXPIRES_IN}
+      { expiresIn: process.env.JWT_EXPIRES_IN }
     )
   }
 
