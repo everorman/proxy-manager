@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { PageService } from '../services/page/page.service';
+import { PageService } from '../../services/page/page.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
-import { CurrentIpType, PageType } from '../types';
+import { CurrentIpType, PageType } from '../../types';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';

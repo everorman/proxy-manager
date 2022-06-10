@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
-import { ModalBasicComponent } from '../modals/modalBasic/modalBasic.component';
+import { ModalBasicComponent } from '../components/modalBasic/modalBasic.component';
 import { AuthService } from '../services/auth/auth.service';
 import { ConfirmedValidator } from './confirmed.validator';
 import { AlertComponent } from 'ngx-bootstrap/alert';

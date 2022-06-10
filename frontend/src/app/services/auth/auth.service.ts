@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { throwError } from 'rxjs';
-import { UserType } from 'src/app/authenticated/types';
+import { UserType } from 'src/app/components/authenticated/types';
 import { AuthJwtType, UserRegisterType } from 'src/app/types';
 import { environment } from 'src/environments/environment';
 import { TokenStorageService } from '../tokenStorage/token-storage.service';

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PageType } from '../types';
+import { PageType } from '../../types';
 
 @Component({
   selector: 'app-header',

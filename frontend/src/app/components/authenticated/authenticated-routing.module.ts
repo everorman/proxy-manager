@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddPageComponent } from '../add-page/add-page.component';
 import { ListIPComponent } from '../listIP/listIP.component';
-import { CurrentIPResolver } from '../resolvers/current-ip.resolver';
+import { ProxyAdminComponent } from '../proxy-admin/proxy-admin.component';
+import { CurrentIPResolver } from '../../resolvers/current-ip.resolver';
+import { ProxyAdminListResolver } from '../../resolvers/proxy-admin-list.resolver';
 import { AuthenticatedComponent } from './authenticated.component';
 import { AuthGuard } from './authenticated.guard';
 import { AuthenticatedResolver } from './authenticated.resolver';
@@ -25,6 +27,13 @@ const routes: Routes = [
         component: AddPageComponent,
         resolve: {
           currentIP: CurrentIPResolver
+        }
+      },
+      {
+        path: 'proxyAdmin',
+        component: ProxyAdminComponent,
+        resolve: {
+          list: ProxyAdminListResolver
         }
       },
       {

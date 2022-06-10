@@ -1,0 +1,17 @@
+$main-color-nav-active: orange;
+
+.site-navbar {
+  margin-bottom: 0px;
+  z-index: 1999;
+  position: absolute;
+  top: 2rem;
+  width: 100%;
+  z-index: 1;
+
+  nav{
+    color: white!important;
+    .nav-item > a{
+      color: white!important;
+    }
+  }
+}

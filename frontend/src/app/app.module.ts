@@ -10,13 +10,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthenticatedModule } from './authenticated/authenticated.module';
+import { AuthenticatedModule } from './components/authenticated/authenticated.module';
 import { HomeComponent } from './home/home.component';
-import { RotateComponent } from './rotate/rotate.component';
 import { TokenInterceptor } from './interceptors/token-interceptor.service';
-import { ListIPComponent } from './listIP/listIP.component';
+import { ListIPComponent } from './components/listIP/listIP.component';
 import { LoginComponent } from './login/login.component';
-import { ModalBasicComponent } from './modals/modalBasic/modalBasic.component';
+import { ModalBasicComponent } from './components/modalBasic/modalBasic.component';
+import { RotateComponent } from './components/rotate/rotate.component';
 
 
 @NgModule({

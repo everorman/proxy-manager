@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserType } from 'src/app/authenticated/types';
+import { UserType } from 'src/app/components/authenticated/types';
 import { UserRegisterType } from 'src/app/types';
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';

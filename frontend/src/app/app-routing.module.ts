@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'app',
-    loadChildren: () => import('./authenticated/authenticated-routing.module').then(m => m.AuthenticatedRoutingModule),
+    loadChildren: () => import('./components/authenticated/authenticated-routing.module').then(m => m.AuthenticatedRoutingModule),
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: HomeComponent }
