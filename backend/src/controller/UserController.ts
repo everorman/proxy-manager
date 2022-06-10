@@ -27,12 +27,12 @@ export class UserController {
     }
 
      profile = async (res: Response) => {
-        const userId = res.res.jwtPayload.id;
+        const userId = res.res.jwtPayload.userId;
+        console.log('userID', userId);
         this.userRepository = getRepository(User);
         const user = await this.userRepository.findOne({ id: userId });
         if (!user) {
-          res.status(401).send("Invalid user");
-          return;
+          return {code: 404, message: 'User not found'};
         }
         return user
       }
