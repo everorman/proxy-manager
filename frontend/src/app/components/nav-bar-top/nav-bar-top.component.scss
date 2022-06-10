@@ -1,14 +1,15 @@
-$main-color-nav-active: orange;
+@import "src/sharedVars.scss";
 
 .site-navbar {
   margin-bottom: 0px;
   z-index: 1999;
-  position: absolute;
-  top: 2rem;
+  position: fixed;
+  top: 0px;
   width: 100%;
   z-index: 1;
 
   nav{
+    background-color: $primaryColor;
     color: white!important;
     .nav-item > a{
       color: white!important;

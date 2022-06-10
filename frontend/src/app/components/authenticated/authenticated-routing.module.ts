@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddPageComponent } from '../add-page/add-page.component';
 import { ListIPComponent } from '../listIP/listIP.component';
-import { ProxyAdminComponent } from '../proxy-admin/proxy-admin.component';
+import { ProxyAdminComponent } from '../proxy/proxy-admin/proxy-admin.component';
 import { CurrentIPResolver } from '../../resolvers/current-ip.resolver';
 import { ProxyAdminListResolver } from '../../resolvers/proxy-admin-list.resolver';
 import { AuthenticatedComponent } from './authenticated.component';

@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="col-lg-6 col-sm-12">
+    <div class="alert-wrapper">
+      <div *ngFor="let alert of alerts" >
+        <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" [dismissible]="true" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+      </div>
+    </div>
+  </div>
+  <div class="card mb-2" *ngFor="let item of proxyList.result">
+    <div class="card-body">
+      <p><strong>IP:</strong> {{item.ip}}</p>
+      <p><strong>description:</strong> {{item.description}}</p>
+    </div>
+
+  </div>
+  <hr>
+  <p>Total:{{proxyList.totalItems || 0}} records</p>
+  <pagination *ngIf="proxyList.result.length" [boundaryLinks]="true" [maxSize]="5"
+    [totalItems]="proxyList.totalItems || 0" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+
+  <button class="float-add-button" (click)="openAdd(formAddProxy)"><i class="bi bi-plus-lg"></i></button>
+
+  
+</div>
+
+<ng-template #formAddProxy>
+  <div class="modal-header">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    
+    <form [formGroup]="itemForm" (ngSubmit)="addItem()">
+      <div class="form-group">
+        <label for="nombreInput">Ip</label>
+        <input class="form-control" id="nombreInput" type="text" formControlName="ip">
+      </div>
+      <div class="form-group">
+        <label for="islaInput">Descripcción</label>
+        <input class="form-control" type="text" formControlName="description">
+      </div>
+    
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" (click)="addItem()">Save</button>
+  </div>
+</ng-template>

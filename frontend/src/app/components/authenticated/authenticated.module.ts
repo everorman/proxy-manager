@@ -18,7 +18,7 @@ import { HeaderComponent } from '../header/header.component';
 import { NavBarTopComponent } from '../nav-bar-top/nav-bar-top.component';
 import { CheckRoleUserPipe } from '../../pipes/check-role-user.pipe';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
-import { ProxyAdminComponent } from '../proxy-admin/proxy-admin.component';
+import { ProxyAdminComponent } from '../proxy/proxy-admin/proxy-admin.component';
 import { AuthenticatedComponent } from './authenticated.component';
 
 

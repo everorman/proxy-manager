@@ -5,7 +5,7 @@ import { checkRole } from "../middlewares/checkRole";
 
 export const ProxyRoutes = [
   {
-    method: "get",
+    method: "post",
     route: "/proxy/list",
     controller: ProxyController,
     action: "all",

@@ -22,15 +22,15 @@ export class PageService {
     return item;
   }
 
-  async getItems(page: number = 1): Promise<PaginationRequestType> {
+  async getItems(page: number = 1): Promise<PaginationRequestType<PageType>> {
     const url = `${environment.apiHost}/sites`;
-    const items = await this.http.post<PaginationRequestType>(url, { page }, { headers: this.headers }).toPromise();
+    const items = await this.http.post<PaginationRequestType<PageType>>(url, { page }, { headers: this.headers }).toPromise();
     return items;
   }
 
-  async seachIp(page: number = 1, seachText: string = ''): Promise<PaginationRequestType> {
+  async seachIp(page: number = 1, seachText: string = ''): Promise<PaginationRequestType<PageType>> {
     const url = `${environment.apiHost}/sites`;
-    const items = await this.http.post<PaginationRequestType>(url, { page, seachText }, { headers: this.headers }).toPromise();
+    const items = await this.http.post<PaginationRequestType<PageType>>(url, { page, seachText }, { headers: this.headers }).toPromise();
     return items;
   }
 
