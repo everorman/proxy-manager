@@ -7,8 +7,7 @@ import config from "../config/config";
 
 export enum UserRole {
   ADMIN = "admin",
-  EDITOR = "editor",
-  GHOST = "ghost",
+  USER = "user"
 }
 
 @Entity()
@@ -32,7 +31,7 @@ export class User {
   @Column({
     type: "set",
     enum: UserRole,
-    default: [UserRole.GHOST, UserRole.EDITOR],
+    default: [UserRole.USER],
   })
   roles: UserRole[]
 
