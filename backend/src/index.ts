@@ -22,32 +22,32 @@ createConnection().then(async connection => {
 
   // register express routes from defined application routes
   Routes.forEach(route => {
-    if(route.check.length){
+    if (route.check.length) {
       (app as any)[route.method](route.route, route.check, (req: Request, res: Response, next: Function) => {
         const result = (new (route.controller as any))[route.action](req, res, next);
         if (result instanceof Promise) {
           result.then(result => result !== null && result !== undefined ? res.send(result) : res.send(null));
-  
+
         } else if (result !== null && result !== undefined) {
           res.json(result);
-        } else{
+        } else {
           res.send(null);
         }
       });
-    }else{
+    } else {
       (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
         const result = (new (route.controller as any))[route.action](req, res, next);
         if (result instanceof Promise) {
           result.then(result => result !== null && result !== undefined ? res.send(result) : res.send(null));
-          
+
         } else if (result !== null && result !== undefined) {
           res.json(result);
-        } else{
+        } else {
           res.send(null);
         }
       });
     }
-    
+
   });
 
   // setup express app here
@@ -67,7 +67,7 @@ createConnection().then(async connection => {
   //   console.log('Local item', item)
   //   await connection.manager.save(connection.manager.create(Site, {...item, organization: '', region:'', score: 0}));
   // }
-  
+
 
   console.log(`Express server has started on port ${process.env.PORT}. Open http://localhost:${process.env.PORT}/users to see results`);
 
