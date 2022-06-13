@@ -29,20 +29,20 @@ export class ProxyController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const userId = response.jwtPayload.id;
+    const userId = response.jwtPayload.userId;
     console.log('Guardando ProxyController', request.body, response.jwtPayload)
     return this.proxyRepository.save({...request.body, created_by: userId, userId });
   }
 
   async update(request: Request, response: Response, next: NextFunction) {
-    console.log('params', request.body);
-    const item = await this.proxyRepository.findOne({where: { id: request.body.id }});
+    const { id } = request.params;
+    const item = await this.proxyRepository.findOne({where: { id }});
+    console.log('item', item);
     if (item) {
-      item.ip = request.body.ip;
-      item.description = `${item.description}, ${request.body.description}`;
-      console.log('Actualizando', item)
-      return this.proxyRepository.update(item.id,{...item});
+      return this.proxyRepository.update(id,{...request.body});
     }
+    console.log('No se encontro el item');
+    return {code: 404, message: 'Proxy not found'};
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {

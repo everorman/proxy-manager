@@ -19,8 +19,8 @@ export const ProxyRoutes = [
     check: [checkJwt, checkRole([UserRole.ADMIN])]
   },
   {
-    method: "post",
-    route: "/proxy/update",
+    method: "patch",
+    route: "/proxy/:id",
     controller: ProxyController,
     action: "update",
     check: [checkJwt, checkRole([UserRole.ADMIN])]

@@ -19,32 +19,47 @@ createConnection().then(async connection => {
   app.use(cors());
   app.use(bodyParser.json());
 
+  const globalResponce = function (result, res) {
+    if (result instanceof Promise) {
+      result.then((result)=>{
+        if(result !== null && result !== undefined){
+          console.log('result', result);
+          if (result.code){
+            res.status(result.code).send(result.message);
+          }else{
+            res.json(result);
+          }
+        }else{
+          res.send(null);
+        }
+      });
+
+    } else if (result !== null && result !== undefined) {
+      console.log('result', result);
+      if (result.code){
+        res.status(result.code).send(result.message);
+      }else{
+        res.json(result);
+      }
+      
+    } else {
+      res.send(null);
+    }
+  }
+
+
 
   // register express routes from defined application routes
   Routes.forEach(route => {
     if (route.check.length) {
       (app as any)[route.method](route.route, route.check, (req: Request, res: Response, next: Function) => {
         const result = (new (route.controller as any))[route.action](req, res, next);
-        if (result instanceof Promise) {
-          result.then(result => result !== null && result !== undefined ? res.send(result) : res.send(null));
-
-        } else if (result !== null && result !== undefined) {
-          res.json(result);
-        } else {
-          res.send(null);
-        }
+        globalResponce(result, res);
       });
     } else {
       (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
         const result = (new (route.controller as any))[route.action](req, res, next);
-        if (result instanceof Promise) {
-          result.then(result => result !== null && result !== undefined ? res.send(result) : res.send(null));
-
-        } else if (result !== null && result !== undefined) {
-          res.json(result);
-        } else {
-          res.send(null);
-        }
+        globalResponce(result, res);
       });
     }
 

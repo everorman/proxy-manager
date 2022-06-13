@@ -1,26 +1,43 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from "typeorm";
 import { User } from "./User";
 
+enum ProxyStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE',
+}
 @Entity()
 export class Proxy {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    ip: string;
+  @Column()
+  host: string;
 
-    @Column()
-    description: string;
+  @Column({
+    type: "set",
+    enum: ProxyStatus,
+    default: [ProxyStatus.INACTIVE],
+  })
+  status: string;
 
-    @Column()
-    created_by: number;
+  @Column({ default: '' })	
+  owner: string;
 
-    @CreateDateColumn()
-    created_at: Date
+  @Column()
+  password: string;
+
+  @Column()
+  description: string;
+
+  @Column()
+  created_by: number;
+
+  @CreateDateColumn()
+  created_at: Date
 
 
 
-    @ManyToOne(type => User, user => user.proxies) user: User; 
+  @ManyToOne(type => User, user => user.proxies) user: User;
 
 }
