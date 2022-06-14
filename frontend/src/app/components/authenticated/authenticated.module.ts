@@ -20,6 +20,8 @@ import { CheckRoleUserPipe } from '../../pipes/check-role-user.pipe';
 import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 import { ProxyAdminComponent } from '../proxy/proxy-admin/proxy-admin.component';
 import { AuthenticatedComponent } from './authenticated.component';
+import { InputFormComponent } from '../utilities/input-form/input-form.component';
+import { FormControlPipe } from 'src/app/pipes/form-control.pipe';
 
 
 
@@ -32,7 +34,9 @@ import { AuthenticatedComponent } from './authenticated.component';
     NavBarTopComponent,
     AuthenticatedComponent,
     CheckRoleUserPipe,
-    ProxyAdminComponent
+    ProxyAdminComponent,
+    InputFormComponent,
+    FormControlPipe
   ],
   imports: [
     CommonModule,

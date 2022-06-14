@@ -11,12 +11,12 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthenticatedModule } from './components/authenticated/authenticated.module';
-import { HomeComponent } from './home/home.component';
-import { TokenInterceptor } from './interceptors/token-interceptor.service';
 import { ListIPComponent } from './components/listIP/listIP.component';
-import { LoginComponent } from './login/login.component';
 import { ModalBasicComponent } from './components/modalBasic/modalBasic.component';
 import { RotateComponent } from './components/rotate/rotate.component';
+import { HomeComponent } from './home/home.component';
+import { TokenInterceptor } from './interceptors/token-interceptor.service';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({

@@ -28,12 +28,13 @@ export class ProxyService {
   async getItems(page: number = 1): Promise<PaginationRequestType<ProxyType>> {
     const url = `${environment.apiHost}/proxy/list`;
     const items = await this.http.post<PaginationRequestType<ProxyType>>(url, { page }, { headers: this.headers }).toPromise();
-    console.log(items);
     return items;
   }
 
-
-
+  async updateItem(proxy:ProxyType) {
+    const url = `${environment.apiHost}/proxy/${proxy.id}`;
+    await this.http.patch(url, { proxy }, { headers: this.headers }).toPromise();
+  }
 
 
 }

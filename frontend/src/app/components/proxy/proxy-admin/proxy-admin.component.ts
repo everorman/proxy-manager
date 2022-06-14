@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertComponent } from 'ngx-bootstrap/alert';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -18,8 +18,10 @@ export class ProxyAdminComponent implements OnInit {
   proxyList!: PaginationRequestType<ProxyType>;
   currentPage: number = 0;
   modalRef!: BsModalRef;
-  itemForm!: FormGroup;
+  proxyForm!: FormGroup;
   alerts: any[] = [];
+
+  private alertDuration = 5000;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,9 +29,12 @@ export class ProxyAdminComponent implements OnInit {
     private proxyService: ProxyService,
     private modalService: BsModalService
   ) {
-    this.itemForm = new FormGroup({
-      ip: new FormControl(''),
-      description: new FormControl('')
+    this.proxyForm = new FormGroup({
+      host: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      description: new FormControl(''),
+      owner: new FormControl(''),
+      password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      status: new FormControl('', [Validators.required, Validators.minLength(4)])
     });
   }
 
@@ -49,29 +54,32 @@ export class ProxyAdminComponent implements OnInit {
   }
 
   async addItem() {
-    if(this.itemForm.invalid) {
+    if(this.proxyForm.invalid) {
       this.alerts.push({
         type: 'danger',
         msg: `Check the form fields`,
-        timeout: 3000
+        timeout: this.alertDuration
       });
       return;
     }
     this.spinner.show;
-    this.modalRef.hide();
-    this.proxyService.addItem(this.itemForm.value)
-    .then((result) => {
+    
+    this.proxyService.addItem(this.proxyForm.value)
+    .then(async (result) => {
       this.alerts.push({
         type: 'success',
         msg: `Proxy registered successfully`,
-        timeout: 3000
+        timeout: this.alertDuration
       });
+      this.modalRef.hide();
+      this.proxyForm.reset();
+      this.proxyList = await this.proxyService.getItems();
     })
     .catch((err) => {
       this.alerts.push({
         type: 'danger',
         msg: `Error registering proxy: ${err.message}`,
-        timeout: 3000
+        timeout: this.alertDuration
       });
     })
     .finally(() => {
@@ -87,5 +95,28 @@ export class ProxyAdminComponent implements OnInit {
     if (email) {
       console.log(email);
     }
+  }
+
+  onStatusChange(proxy:ProxyType) {
+    this.spinner.show;
+    this.proxyService.updateItem(proxy)
+    .then(() => {
+      this.alerts.push({
+        type: 'success',
+        msg: `Proxy updated successfully`,
+        timeout: this.alertDuration
+      });
+    })
+    .catch((err) => {
+      this.alerts.push({
+        type: 'danger',
+        msg: `Error registering proxy: ${err.message}`,
+        timeout: this.alertDuration
+      });
+      console.log(err);
+    })
+    .finally(() => {
+      this.spinner.hide();
+    })
   }
 }
