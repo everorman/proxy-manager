@@ -37,11 +37,9 @@ export class ProxyController {
   async update(request: Request, response: Response, next: NextFunction) {
     const { id } = request.params;
     const item = await this.proxyRepository.findOne({where: { id }});
-    console.log('item', item);
     if (item) {
-      return this.proxyRepository.update(id,{...request.body});
+      return this.proxyRepository.update(id,{...request.body.proxy});
     }
-    console.log('No se encontro el item');
     return {code: 404, message: 'Proxy not found'};
   }
 

@@ -23,7 +23,6 @@ createConnection().then(async connection => {
     if (result instanceof Promise) {
       result.then((result)=>{
         if(result !== null && result !== undefined){
-          console.log('result', result);
           if (result.code){
             res.status(result.code).send(result.message);
           }else{
@@ -35,13 +34,11 @@ createConnection().then(async connection => {
       });
 
     } else if (result !== null && result !== undefined) {
-      console.log('result', result);
       if (result.code){
         res.status(result.code).send(result.message);
       }else{
         res.json(result);
       }
-      
     } else {
       res.send(null);
     }
