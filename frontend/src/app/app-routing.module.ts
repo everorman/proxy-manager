@@ -19,7 +19,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'rotate',
+    path: 'rotate/3kxfWSO6WdCB1A14LfIf',
     component: RotateComponent
   },
   {
