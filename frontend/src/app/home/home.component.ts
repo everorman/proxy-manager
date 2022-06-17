@@ -45,6 +45,8 @@ export class HomeComponent implements OnInit {
       navbarToggler?.classList.toggle("active");
       navbarCollapse?.classList.remove("show");
     });
+
+    
   }
 
 }

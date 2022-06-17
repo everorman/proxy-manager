@@ -1,12 +1,15 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertComponent } from 'ngx-bootstrap/alert';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription } from 'rxjs';
 import { ProxyService } from 'src/app/services/proxy/proxy.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { PaginationRequestType } from 'src/app/types';
+import { SearchUserType } from '../../searchUser/searchUser.type';
 import { ProxyType } from '../proxy.type';
 
 @Component({
@@ -14,11 +17,26 @@ import { ProxyType } from '../proxy.type';
   templateUrl: './proxy-admin.component.html',
   styleUrls: ['./proxy-admin.component.scss'],
 })
-export class ProxyAdminComponent implements OnInit {
+export class ProxyAdminComponent implements OnInit, OnDestroy {
   proxyList!: PaginationRequestType<ProxyType>;
   currentPage: number = 0;
   modalRef!: BsModalRef;
-  proxyForm!: FormGroup;
+  proxyForm: FormGroup = new FormGroup({
+    host: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    description: new FormControl(''),
+    userId: new FormControl(''),
+    hostUser: new FormControl(''),
+    hostPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    status: new FormControl('', [Validators.required, Validators.minLength(4)])
+  });
+  subscription!: Subscription;
+  subscriptionSearch!: Subscription | undefined;
+  users: SearchUserType[] = [];
+  searchForm = new FormGroup({
+    key: new FormControl(''),
+  })
+
+  
   alerts: any[] = [];
 
   private alertDuration = 5000;
@@ -27,20 +45,38 @@ export class ProxyAdminComponent implements OnInit {
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private proxyService: ProxyService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private userService: UserService
   ) {
-    this.proxyForm = new FormGroup({
-      host: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      description: new FormControl(''),
-      owner: new FormControl(''),
-      password: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      status: new FormControl('', [Validators.required, Validators.minLength(4)])
-    });
+    this.proxyForm.get
   }
 
   ngOnInit(): void {
+    this.subscriptionSearch = this.searchForm.get("key")?.valueChanges.subscribe(selectedValue => {
+      console.log('key value changed')
+      this.searchUser(selectedValue);
+
+    })
+    
     this.proxyList = this.route.snapshot.data.list;
     console.log(this.proxyList);
+  }
+
+  searchUser(key:string) {
+    console.log('searchUser');
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    this.subscription = this.userService.search(key)
+      .subscribe((res) => {
+        this.users = (res as SearchUserType[]);
+        console.log('searchUser', res);
+      })
+  }
+
+  getControl(name: string) {
+    console.log(name, this.proxyForm.get(name));
+    return this.proxyForm.get(name) as FormControl;
   }
 
   async pageChanged(event: PageChangedEvent) {
@@ -62,6 +98,7 @@ export class ProxyAdminComponent implements OnInit {
       });
       return;
     }
+    console.log(this.proxyForm.value);
     this.spinner.show;
     
     this.proxyService.addItem(this.proxyForm.value)
@@ -118,5 +155,15 @@ export class ProxyAdminComponent implements OnInit {
     .finally(() => {
       this.spinner.hide();
     })
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+
+    if (this.subscriptionSearch) {
+      this.subscriptionSearch.unsubscribe();
+    }
   }
 }

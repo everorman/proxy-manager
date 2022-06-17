@@ -6,8 +6,11 @@
   };
 
   function fadeout() {
-    document.querySelector(".preloader").style.opacity = "0";
-    document.querySelector(".preloader").style.display = "none";
+    if(document.querySelector(".preloader")){
+      document.querySelector(".preloader").style.opacity = "0";
+      document.querySelector(".preloader").style.display = "none";
+    }
+    
   }
 
   /*=====================================
@@ -77,21 +80,6 @@
   }
 
   window.document.addEventListener("scroll", onScroll);
-
-  //===== close navbar-collapse when a  clicked
-  let navbarToggler = document.querySelector(".navbar-toggler");
-  const navbarCollapse = document.querySelector(".navbar-collapse");
-
-  document.querySelectorAll(".page-scroll").forEach((e) =>
-    e.addEventListener("click", () => {
-      navbarToggler.classList.remove("active");
-      navbarCollapse.classList.remove("show");
-    })
-  )
-  navbarToggler.addEventListener("click", function () {
-    console.log("clicked");
-    navbarToggler.classList.toggle("active");
-  });
 
   // WOW active
   new WOW().init();

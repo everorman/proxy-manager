@@ -61,7 +61,8 @@
     <form [formGroup]="proxyForm" (ngSubmit)="addItem()">
       <div class="form-group">
         <label for="nombreInput">Ip</label>
-        <input class="form-control" id="nombreInput" type="text" formControlName="host" [ngClass]="{'is-invalid': proxyForm.get('host')?.errors && 
+        <input class="form-control" id="nombreInput" type="text" formControlName="host"
+          [ngClass]="{'is-invalid': proxyForm.get('host')?.errors && 
         proxyForm.get('host')?.hasError('required') &&  (proxyForm.get('host')?.dirty || proxyForm.get('host')?.touched)}">
         <div class="invalid-feedback" *ngIf="proxyForm.get('host')?.errors">
           This field is required
@@ -69,20 +70,35 @@
       </div>
       <div class="form-group">
         <label for="islaInput">Descripcción</label>
-        <input class="form-control" type="text" formControlName="description" >
+        <input class="form-control" type="text" formControlName="description">
       </div>
       <div class="form-group">
-        <label for="islaInput">User</label>
-        <input class="form-control" type="text" formControlName="owner" [ngClass]="{'is-invalid': proxyForm.get('owner')?.errors && 
-        proxyForm.get('owner')?.hasError('required') &&  (proxyForm.get('owner')?.dirty || proxyForm.get('owner')?.touched)}">
-        <div class="invalid-feedback" *ngIf="proxyForm.get('owner')?.errors">
+        <form [formGroup]="searchForm">
+          <input type="text" formControlName="key" class="form-control" placeholder="Buscar email">
+        </form>
+      </div>
+      <div class="form-group">
+        <select class="form-control" formControlName="userId"
+          [ngClass]="{'is-invalid': proxyForm.get('userId')?.errors && 
+      proxyForm.get('userId')?.hasError('required') &&  (proxyForm.get('userId')?.dirty || proxyForm.get('userId')?.touched)}">
+          <option value="">Seleccione un usuario</option>
+          <option value="{{user.id}}" *ngFor="let user of users">{{user | formatFullName}}</option>
+        </select>
+        <div class="invalid-feedback" *ngIf="proxyForm.get('userId')?.errors">
           This field is required
         </div>
       </div>
       <div class="form-group">
-        <label for="islaInput">Password</label>
-        <input class="form-control" type="text" formControlName="password">
-        <div class="invalid-feedback" *ngIf="proxyForm.get('host')?.errors">
+        <label for="islaInput">Host user</label>
+        <input class="form-control" type="text" formControlName="hostUser">
+        <div class="invalid-feedback" *ngIf="proxyForm.get('hostUser')?.errors">
+          This field is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="islaInput">Host password</label>
+        <input class="form-control" type="text" formControlName="hostPassword">
+        <div class="invalid-feedback" *ngIf="proxyForm.get('hostPassword')?.errors">
           This field is required
         </div>
       </div>
