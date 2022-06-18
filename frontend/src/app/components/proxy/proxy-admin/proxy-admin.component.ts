@@ -110,6 +110,7 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
       });
       this.modalRef.hide();
       this.proxyForm.reset();
+      this.searchForm.reset();
       this.proxyList = await this.proxyService.getItems();
     })
     .catch((err) => {
