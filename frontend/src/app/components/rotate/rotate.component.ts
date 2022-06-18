@@ -18,7 +18,7 @@ export class RotateComponent implements OnInit {
     //   this.spinner.hide();
     // }, 3000);
     const host = `${environment.apiHost}/extras/rotate`;
-    this.http.get(host).toPromise()
+    this.http.post(host,{}).toPromise()
     .then((result) => {
       console.warn(result);
       alert('The rotation may take 1 minute to complete.');
