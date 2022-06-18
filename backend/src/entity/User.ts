@@ -41,7 +41,6 @@ export class User {
 
   isValidPasswword = async (pws: string) => {
     const result = await bcrypt.compare(pws, this.password);
-    console.log('Password correctas ', result);
     return result;
   }
 

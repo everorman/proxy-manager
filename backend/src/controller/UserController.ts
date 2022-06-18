@@ -42,7 +42,6 @@ export class UserController {
 
      profile = async (res: Response) => {
         const userId = res.res.jwtPayload.userId;
-        console.log('Verificando perfil del usuario: ', userId);
         this.userRepository = getRepository(User);
         const user = await this.userRepository.findOne({ id: userId });
         if (!user) {

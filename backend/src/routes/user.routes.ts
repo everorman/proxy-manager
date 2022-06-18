@@ -1,5 +1,7 @@
 import { UserController } from "../controller";
+import { UserRole } from "../entity/User";
 import { checkJwt } from "../middlewares/checkJwt";
+import { checkRole } from "../middlewares/checkRole";
 
 export const UserRoutes = [
   {
@@ -15,5 +17,12 @@ export const UserRoutes = [
     controller: UserController,
     action: "profile",
     check: [checkJwt]
+  },
+  {
+    method: "get",
+    route: "/user/search/:key",
+    controller: UserController,
+    action: "search",
+    check: [checkJwt, checkRole([UserRole.ADMIN])]
   }
 ]

@@ -19,7 +19,6 @@ export const checkRole = (roles: Array<UserRole>) => {
 
     //Check if array of authorized roles includes the user's role
     for (const role of roles) {
-      console.log('role', role, user.roles.indexOf(role));
       if (user.roles.indexOf(role) >= 0) {
         next();
         return;

@@ -21,11 +21,11 @@ export class Proxy {
   })
   status: string;
 
-  @Column({ default: '' })	
-  owner: string;
+  @Column()
+  hostUser: string;
 
   @Column()
-  password: string;
+  hostPassword: string;
 
   @Column()
   description: string;
