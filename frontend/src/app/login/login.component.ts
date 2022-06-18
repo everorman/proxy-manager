@@ -100,18 +100,28 @@ export class LoginComponent implements OnInit {
     const val = this.loginForm.value;
 
     if (val.email && val.password) {
-      const result = await this.authService.signIn(val.email, val.password)
+      const result: any = await this.authService.signIn(val.email, val.password)
       console.log(result)
-      if (result.code > 0) {
-        console.log("login result", result);
-        this.router.navigateByUrl('/app');
-      } else {
+      if (result.error) {
         this.alerts.push({
           type: 'danger',
-          msg: result.message,
+          msg: result.error,
           timeout: 5000
         });
+      } else {
+        if (result && result.data) {
+          console.log("login result", result);
+          this.router.navigateByUrl('/app');
+        } else {
+          this.alerts.push({
+            type: 'danger',
+            msg: result.message,
+            timeout: 5000
+          });
+        }
       }
+
+
     }
   }
 

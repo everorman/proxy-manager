@@ -23,7 +23,6 @@ export class AuthController extends BaseEntity {
     );
 
     if(userEmailCheck){
-      console.log(userEmailCheck)
       res.status(403).json({ code: -2, message: "User exist" });
       return
     }
@@ -44,19 +43,17 @@ export class AuthController extends BaseEntity {
   }
 
   login = async (req: Request, res: Response) => {
-    console.log(req.body)
     const { email, password } = req.body;
     
     try {
       const user = await this.userRepository.findOne({ email: email });
-      console.log('user', user);
       if(!user){
-        return {code: -2, message: "Invalid user"}
+        return {code: 401, message: "Invalid user"}
       }
       if (user && !(await user.isValidPasswword(password))) {
-        return {code: -1, message: "Invalid password"}
+        return {code: 401, message: "Invalid password"}
       }
-      return { code: 1, data: {accesToken: user.generateJWT(), expiresIn: process.env.JWT_EXPIRES_IN} };
+      return { data: {accesToken: user.generateJWT(), expiresIn: process.env.JWT_EXPIRES_IN} };
     } catch (error) {
       return error;
     }

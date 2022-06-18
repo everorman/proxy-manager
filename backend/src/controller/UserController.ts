@@ -1,4 +1,4 @@
-import {getRepository} from "typeorm";
+import {getRepository, Like} from "typeorm";
 import {NextFunction, Request, Response} from "express";
 import { User } from "../entity";
 
@@ -8,6 +8,20 @@ export class UserController {
     
     async all(request: Request, response: Response, next: NextFunction) {
         return this.userRepository.find();
+    }
+
+    async search(request: Request, response: Response, next: NextFunction) {
+      const { key } = request.params;
+      let where = {};
+      if(key){
+        where = {email: Like(`%${key}%`)};
+      }
+      const result = await this.userRepository.find({
+        select: ['id', 'email', 'firstName', 'lastName'],
+        where,
+        take: 5,
+      });
+      return result;
     }
 
      async one(request: Request, response: Response, next: NextFunction) {
@@ -28,7 +42,7 @@ export class UserController {
 
      profile = async (res: Response) => {
         const userId = res.res.jwtPayload.userId;
-        console.log('userID', userId);
+        console.log('Verificando perfil del usuario: ', userId);
         this.userRepository = getRepository(User);
         const user = await this.userRepository.findOne({ id: userId });
         if (!user) {

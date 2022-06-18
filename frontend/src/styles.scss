@@ -6,6 +6,10 @@
 /* Importing Datepicker SCSS file. */
 @import "~ngx-bootstrap/datepicker/bs-datepicker";
 
+html, body {
+  height: 100%!important;
+}
+
 .clickable{
   cursor: pointer;
 }

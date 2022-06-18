@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -50,13 +50,13 @@ export class AuthService {
     this.spinner.show();
     try {
       const result = await this.http.post<StatusRequestType>(host, { email, password }).toPromise();
-      if (result.code > 0) {
+      if (result.data) {
         this.setSession((result.data as AuthJwtType));
       }
       return result;
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error al iniciar sesion", error);
-      throw new Error();
+      return { error: error.error};
     } finally {
       this.spinner.hide();
     }
@@ -66,15 +66,12 @@ export class AuthService {
   async getCurrentUserDetail(): Promise<UserType> {
     const host = `${environment.apiHost}/user/profile`;
     this.spinner.show();
-    try {
-      const result = await this.http.post<UserType>(host, { headers: this.headers }).toPromise();
-      return result;
-    } catch (err) {
-      console.log(err)
-      throw new Error();
-    } finally {
-      this.spinner.hide();
-    }
+    const result = await this.http.post<UserType>(host, { headers: this.headers }).toPromise();
+    this.spinner.hide();
+    return result;
+  
+    
+    
   }
 
   private setSession(authResult: AuthJwtType) {
