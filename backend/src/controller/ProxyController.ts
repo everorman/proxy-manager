@@ -1,6 +1,6 @@
 import { getRepository, Like } from "typeorm";
 import { NextFunction, Request, Response } from "express";
-import { Proxy, User } from "../entity";
+import { Proxy, User, UserRole } from "../entity";
 import { ExternalApis } from "../utilities";
 
 
@@ -11,10 +11,44 @@ export class ProxyController {
 
   async all(request: Request, response: Response, next: NextFunction) {
     const { page = 1, limit = 10, seachText = '' } = request.body;
+    const { userId } = response.jwtPayload;
+    const user = await this.userRepository.findOne({ id: userId });
+
+
+    let where = {};
+    if (user.roles.indexOf(UserRole.USER) >= 0) {
+      where['user'] = { id: user.id }
+    }
+    if (user.roles.indexOf(UserRole.ADMIN) >= 0) {
+      where = {};
+    }
+    if (seachText) {
+      where = { ip: Like(`%${seachText}%`) };
+    }
+
+
+    const result = await this.proxyRepository.find({
+      where,
+      take: limit * 1,
+      skip: (page - 1) * limit
+    });
+    const count = await this.proxyRepository.count({ where });
+    return {
+      result,
+      totalPages: Math.ceil(count / limit),
+      totalItems: count,
+      currentPage: page
+    }
+  }
+
+  async listByOwner(request: Request, response: Response, next: NextFunction) {
+    const { page = 1, limit = 10, seachText = '' } = request.body;
+
     let where = {};
     if (seachText) {
       where = { ip: Like(`%${seachText}%`) };
     }
+
     const result = await this.proxyRepository.find({
       where,
       take: limit * 1,

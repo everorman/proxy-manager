@@ -9,7 +9,7 @@ export const ProxyRoutes = [
     route: "/proxy/list",
     controller: ProxyController,
     action: "all",
-    check: [checkJwt, checkRole([UserRole.ADMIN])]
+    check: [checkJwt]
   },
   {
     method: "post",
