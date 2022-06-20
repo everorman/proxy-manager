@@ -8,6 +8,8 @@ import { ProxyAdminListResolver } from '../../resolvers/proxy-admin-list.resolve
 import { AuthenticatedComponent } from './authenticated.component';
 import { AuthGuard } from './authenticated.guard';
 import { AuthenticatedResolver } from './authenticated.resolver';
+import { ProxyDashboardComponent } from '../proxy/proxy-dashboard/proxy-dashboard.component';
+import { ProxyListResolver } from 'src/app/resolvers/proxy-list.resolver';
 
 const routes: Routes = [
   {
@@ -34,6 +36,13 @@ const routes: Routes = [
         component: ProxyAdminComponent,
         resolve: {
           list: ProxyAdminListResolver
+        }
+      },
+      {
+        path: 'proxyDashboard',
+        component: ProxyDashboardComponent,
+        resolve: {
+          list: ProxyListResolver
         }
       },
       {

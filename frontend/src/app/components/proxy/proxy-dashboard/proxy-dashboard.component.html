@@ -1,0 +1,38 @@
+<div class="container">
+  <h1>My proxies</h1>
+  <hr>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>IP</th>
+            <th>Port</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let proxy of proxyList.result">
+            <td>{{ proxy.id }}</td>
+            <td>{{ proxy.host }}</td>
+            <td>{{ proxy.description }}</td>
+            <td>
+              <span class="badge" [ngClass]="{'badge-success':proxy.status=='ACTIVE','badge-danger':proxy.status=='INACTIVE'}">{{proxy.status | proxyStatusName}}</span>
+            </td>
+            <td>
+            </td>
+          </tr>
+      </table>
+    </div>
+  </div>
+
+  <hr>
+  <p>Total:{{proxyList.totalItems || 0}} records</p>
+  <pagination *ngIf="proxyList.result.length" [boundaryLinks]="true" [maxSize]="5"
+    [totalItems]="proxyList.totalItems || 0" [(ngModel)]="currentPage" (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+
+
+</div>

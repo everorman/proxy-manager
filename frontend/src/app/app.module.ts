@@ -17,6 +17,7 @@ import { RotateComponent } from './components/rotate/rotate.component';
 import { HomeComponent } from './home/home.component';
 import { TokenInterceptor } from './interceptors/token-interceptor.service';
 import { LoginComponent } from './login/login.component';
+import { ProxyStatusNamePipe } from './pipes/proxy-status-name.pipe';
 
 
 @NgModule({

@@ -23,6 +23,8 @@ import { AuthenticatedComponent } from './authenticated.component';
 import { FormControlPipe } from 'src/app/pipes/form-control.pipe';
 import { SearchUserComponent } from '../searchUser/searchUser.component';
 import { FormatFullaName } from 'src/app/pipes/format-full-name';
+import { ProxyDashboardComponent } from '../proxy/proxy-dashboard/proxy-dashboard.component';
+import { ProxyStatusNamePipe } from 'src/app/pipes/proxy-status-name.pipe';
 
 
 
@@ -37,8 +39,10 @@ import { FormatFullaName } from 'src/app/pipes/format-full-name';
     CheckRoleUserPipe,
     ProxyAdminComponent,
     FormControlPipe,
+    ProxyStatusNamePipe,
     FormatFullaName,
     SearchUserComponent,
+    ProxyDashboardComponent
     
   ],
   imports: [
