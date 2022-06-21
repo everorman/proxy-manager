@@ -65,7 +65,7 @@ export class ProxyController {
 
   async save(request: Request, response: Response, next: NextFunction) {
     const created_by = response.jwtPayload.userId;
-    const { userId, host, description, status, hostUser, hostPassword } = request.body;
+    const { userId, host, description, status, hostUser, hostPassword, urlReset } = request.body;
     const owner = await this.userRepository.findOne(userId);
     const proxy = new Proxy();
     proxy.host = host;
@@ -74,6 +74,7 @@ export class ProxyController {
     proxy.hostUser = hostUser;
     proxy.hostPassword = hostPassword;
     proxy.created_by = created_by;
+    proxy.urlReset = urlReset;
     proxy.user = owner;
     console.log('Guardando ProxyController', proxy, response.jwtPayload)
     await this.proxyRepository.save(proxy);

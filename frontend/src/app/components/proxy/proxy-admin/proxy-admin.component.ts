@@ -23,6 +23,7 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
   modalRef!: BsModalRef;
   proxyForm: FormGroup = new FormGroup({
     host: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    urlReset: new FormControl('', [Validators.required, Validators.minLength(4)]),
     description: new FormControl(''),
     userId: new FormControl(''),
     hostUser: new FormControl(''),

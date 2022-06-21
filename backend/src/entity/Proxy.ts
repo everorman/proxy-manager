@@ -31,6 +31,9 @@ export class Proxy {
   description: string;
 
   @Column()
+  urlReset: string;
+
+  @Column()
   created_by: number;
 
   @CreateDateColumn()
