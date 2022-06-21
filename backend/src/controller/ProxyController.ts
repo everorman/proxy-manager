@@ -2,6 +2,7 @@ import { getRepository, Like } from "typeorm";
 import { NextFunction, Request, Response } from "express";
 import { Proxy, User, UserRole } from "../entity";
 import { ExternalApis } from "../utilities";
+import axios from "axios";
 
 
 export class ProxyController {
@@ -78,6 +79,34 @@ export class ProxyController {
     proxy.user = owner;
     console.log('Guardando ProxyController', proxy, response.jwtPayload)
     await this.proxyRepository.save(proxy);
+  }
+
+  async reset(request: Request, response: Response) {
+    console.log('Reset ProxyController')
+    const currentUserId = response.jwtPayload.userId;
+    const { hostId } = request.body;
+    const host = await this.proxyRepository.findOne({ where: { id: hostId }, relations: ['user'] });
+    const currentUser = await this.userRepository.findOne({ id: currentUserId });
+
+    if (currentUser.roles.indexOf(UserRole.ADMIN) >= 0) {
+      return this.restHost(host);
+    }else{
+      if (host.user.id !== currentUserId) {
+        return { code: 403, message: 'You are not allowed to reset this host' };
+      }else{
+        return this.restHost(host);
+      }
+    }
+
+  }
+
+  private restHost(host: Proxy) {
+    axios.get(host.urlReset).then(res => {
+      return { code: 200, message: 'Host reseted'};
+    }).catch(err => {
+      console.log(err);
+      return { code: 500, message: 'Error reseting host' };
+    });
   }
 
   async update(request: Request, response: Response, next: NextFunction) {

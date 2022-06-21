@@ -28,4 +28,10 @@ export class ProxyDashboardComponent implements OnInit {
     this.spinner.hide();
   }
 
+  async resetHost(host:ProxyType){
+    this.spinner.show();
+    await this.proxyService.reset(host);
+    this.spinner.hide();
+  }
+
 }

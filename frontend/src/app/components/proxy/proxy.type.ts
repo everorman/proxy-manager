@@ -8,8 +8,9 @@ export type ProxyType = {
   host: string,
   description: string,
   status: ProxyStatus,
-  user: string,
-  password: string,
+  hostUser: string,
+  hostPassword: string,
+  created_at?: Date,
 }
 
 export type SearchUserType = {

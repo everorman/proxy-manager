@@ -36,5 +36,10 @@ export class ProxyService {
     await this.http.patch(url, { proxy }, { headers: this.headers }).toPromise();
   }
 
+  async reset(proxy:ProxyType) {
+    const url = `${environment.apiHost}/proxy/reset`;
+    await this.http.post(url, { hostId: proxy.id }, { headers: this.headers }).toPromise();
+  }
+
 
 }

@@ -13,6 +13,13 @@ export const ProxyRoutes = [
   },
   {
     method: "post",
+    route: "/proxy/reset",
+    controller: ProxyController,
+    action: "reset",
+    check: [checkJwt]
+  },
+  {
+    method: "post",
     route: "/proxy/add",
     controller: ProxyController,
     action: "save",
