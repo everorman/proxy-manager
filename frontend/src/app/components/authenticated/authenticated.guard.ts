@@ -15,10 +15,10 @@ import { AuthService, TokenStorageService } from '../../services';
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
     private tokenStorage: TokenStorageService
-  ) {}
+  ) { }
 
   public canActivate(
     route: ActivatedRouteSnapshot,
@@ -32,10 +32,15 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           return false;
         }
 
-        const user = {  };
+        const user = {};
         this.tokenStorage.saveUser(result);
 
         return true;
+      })
+      .catch((err) => {
+        this.tokenStorage.cleanUser();
+        this.router.navigateByUrl('/login');
+        return false;
       })
   }
 

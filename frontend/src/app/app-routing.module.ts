@@ -26,8 +26,8 @@ const routes: Routes = [
     path: 'app',
     loadChildren: () => import('./components/authenticated/authenticated-routing.module').then(m => m.AuthenticatedRoutingModule),
   },
-  { path: '', redirectTo: '/construction', pathMatch: 'full' },
-  { path: '**', component: ConstructionPageComponent }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', component: HomeComponent }
 ];
 
 @NgModule({
