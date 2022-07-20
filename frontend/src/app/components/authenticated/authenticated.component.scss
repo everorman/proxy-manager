@@ -8,5 +8,7 @@ html, body{
   height: 20px;
   width: 100%;
   top: 60px;
-  z-index: 1;
+  .alert, div{
+    z-index: 1;
+  }
 }
