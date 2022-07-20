@@ -37,3 +37,9 @@ export type PaginationRequestType<T> = {
   totalItems?: number;
   result: T[]
 }
+
+export type AlertType = {
+  type: 'danger' | 'danger' | 'warning' | 'info' | 'success';
+  msg: string;
+  timeout: number;
+}

@@ -1,3 +1,15 @@
 <ngx-spinner></ngx-spinner>
 <app-nav-bar-top></app-nav-bar-top>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 mb-5">
+      <div class="alert-wrapper">
+        <div *ngFor="let alert of (alerts$|async)">
+          <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" [dismissible]="true">
+            {{ alert.msg }}</alert>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <router-outlet></router-outlet>

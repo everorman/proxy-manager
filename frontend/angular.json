@@ -34,14 +34,12 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.scss",
               "src/styles.scss"
-              
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "src/assets/js/wow.min.js",
               "src/assets/js/main.js"
-              
             ]
           },
           "configurations": {
@@ -116,9 +114,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "proxy-manager"
+  "defaultProject": "proxy-manager",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

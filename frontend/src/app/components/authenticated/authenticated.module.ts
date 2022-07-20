@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -25,6 +25,8 @@ import { SearchUserComponent } from '../searchUser/searchUser.component';
 import { FormatFullaName } from 'src/app/pipes/format-full-name';
 import { ProxyDashboardComponent } from '../proxy/proxy-dashboard/proxy-dashboard.component';
 import { ProxyStatusNamePipe } from 'src/app/pipes/proxy-status-name.pipe';
+import { ProxyItemComponent } from '../proxy/proxy-item/proxy-item.component';
+import { AlertsService } from 'src/app/services/alerts/alerts.service';
 
 
 
@@ -42,7 +44,8 @@ import { ProxyStatusNamePipe } from 'src/app/pipes/proxy-status-name.pipe';
     ProxyStatusNamePipe,
     FormatFullaName,
     SearchUserComponent,
-    ProxyDashboardComponent
+    ProxyDashboardComponent,
+    ProxyItemComponent
     
   ],
   imports: [
@@ -62,7 +65,6 @@ import { ProxyStatusNamePipe } from 'src/app/pipes/proxy-status-name.pipe';
     AppRoutingModule,
     HttpClientModule,
     NgxSpinnerModule,
-    NgbModule,
     BrowserAnimationsModule,
   ],
   bootstrap: [AuthenticatedComponent]

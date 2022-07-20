@@ -6,6 +6,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
+import { AlertsService } from 'src/app/services/alerts/alerts.service';
 import { ProxyService } from 'src/app/services/proxy/proxy.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { PaginationRequestType } from 'src/app/types';
@@ -21,6 +22,7 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
   proxyList!: PaginationRequestType<ProxyType>;
   currentPage: number = 0;
   modalRef!: BsModalRef;
+
   proxyForm: FormGroup = new FormGroup({
     host: new FormControl('', [Validators.required, Validators.minLength(4)]),
     urlReset: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -47,7 +49,8 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService,
     private proxyService: ProxyService,
     private modalService: BsModalService,
-    private userService: UserService
+    private userService: UserService,
+    private alertsService: AlertsService
   ) {
     this.proxyForm.get
   }
@@ -92,11 +95,11 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
 
   async addItem() {
     if(this.proxyForm.invalid) {
-      this.alerts.push({
+      this.alertsService.addAlert({
         type: 'danger',
         msg: `Check the form fields`,
         timeout: this.alertDuration
-      });
+      })
       return;
     }
     console.log(this.proxyForm.value);
@@ -104,31 +107,32 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
     
     this.proxyService.addItem(this.proxyForm.value)
     .then(async (result) => {
-      this.alerts.push({
+
+      this.alertsService.addAlert({
         type: 'success',
         msg: `Proxy registered successfully`,
         timeout: this.alertDuration
-      });
+      })
       this.modalRef.hide();
       this.proxyForm.reset();
       this.searchForm.reset();
       this.proxyList = await this.proxyService.getItems();
     })
     .catch((err) => {
-      this.alerts.push({
+      this.alertsService.addAlert({
         type: 'danger',
         msg: `Error registering proxy: ${err.message}`,
         timeout: this.alertDuration
-      });
+      })
     })
     .finally(() => {
       this.spinner.hide();
     })
   }
 
-  onClosed(dismissedAlert: AlertComponent): void {
-    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
-  }
+  // onClosed(dismissedAlert: AlertComponent): void {
+  //   this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
+  // }
 
   search(email: string) {
     if (email) {

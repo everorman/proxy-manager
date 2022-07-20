@@ -1,0 +1,22 @@
+<div class="card p-3 mb-2">
+  <div class="d-flex justify-content-between">
+    <div class="d-flex flex-row align-items-center">
+      <div class="ms-2 c-details">
+        <h6 class="mb-0"># {{item.id}}</h6> <span>Created at: {{item.created_at}} </span>
+      </div>
+    </div>
+    <div class="badge"> <span
+        [ngClass]="{'badge-success':item.status=='ACTIVE','badge-danger':item.status=='INACTIVE'}">{{item.status
+        | proxyStatusName}}</span> </div>
+  </div>
+  <div class="mt-1">
+    <span>Host:</span>
+    <h3 class="heading">{{item.host}}</h3>
+    <hr>
+    <h6>User: {{item.hostUser}}</h6>
+    <h6>Password: {{item.hostPassword}}</h6>
+
+  </div>
+  <hr>
+  <button class="btn btn-primary" (click)="resetHost(item)">Reset</button>
+</div>
