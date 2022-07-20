@@ -16,6 +16,7 @@ export class AlertsService {
 
   addAlert(alert:AlertType) {
     this.alerts.push(alert);
+    console.log('Se agrega alert');
     this.alertsBehavior.next(this.alerts);
   }
 
