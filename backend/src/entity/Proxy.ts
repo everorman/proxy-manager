@@ -14,6 +14,9 @@ export class Proxy {
   @Column()
   host: string;
 
+  @Column()
+  sock5: string;
+
   @Column({
     type: "set",
     enum: ProxyStatus,
