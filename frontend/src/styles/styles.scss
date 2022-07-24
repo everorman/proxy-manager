@@ -4,6 +4,8 @@
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
+@import "./fonts";
+
 html, body {
   height: 100%!important;
 }
