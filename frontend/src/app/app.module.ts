@@ -14,6 +14,7 @@ import { AuthenticatedModule } from './components/authenticated/authenticated.mo
 import { ListIPComponent } from './components/listIP/listIP.component';
 import { ModalBasicComponent } from './components/modalBasic/modalBasic.component';
 import { RotateComponent } from './components/rotate/rotate.component';
+import { GuestModule } from './guest/guest.module';
 import { HomeComponent } from './home/home.component';
 import { TokenInterceptor } from './interceptors/token-interceptor.service';
 import { LoginComponent } from './login/login.component';
@@ -21,14 +22,14 @@ import { ProxyStatusNamePipe } from './pipes/proxy-status-name.pipe';
 
 
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     HomeComponent,
     RotateComponent,
     ListIPComponent,
     LoginComponent,
     ModalBasicComponent,
-  ],
+   ],
   imports: [
     ModalModule.forRoot(),
     AlertModule.forRoot(),
@@ -40,7 +41,8 @@ import { ProxyStatusNamePipe } from './pipes/proxy-status-name.pipe';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    AuthenticatedModule
+    AuthenticatedModule,
+    GuestModule
   ],
   providers: [
     {

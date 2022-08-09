@@ -1,0 +1,10 @@
+@import "src/styles/sharedVars.scss";
+
+
+nav{
+  background-color: $primaryColor;
+  color: white!important;
+  .nav-item > a{
+    color: white!important;
+  }
+}

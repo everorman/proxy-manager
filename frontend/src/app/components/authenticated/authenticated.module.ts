@@ -58,7 +58,6 @@ import { AlertsService } from 'src/app/services/alerts/alerts.service';
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    AppRoutingModule,
     HttpClientModule,
     NgxSpinnerModule,
     BrowserModule,
