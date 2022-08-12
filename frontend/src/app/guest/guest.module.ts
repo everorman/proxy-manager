@@ -6,7 +6,11 @@ import { TerminosCondicionesComponent } from './terminosCondiciones/terminosCond
 import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
-  declarations: [GuestComponent, FaqsComponent, TerminosCondicionesComponent],
+  declarations: [
+    GuestComponent,
+    FaqsComponent,
+    TerminosCondicionesComponent
+  ],
   imports: [
     CommonModule,
     AppRoutingModule,
