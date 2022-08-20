@@ -9,7 +9,7 @@ export const UserRoutes = [
     route: "/users",
     controller: UserController,
     action: "save",
-    check: []
+    check: [checkJwt, checkRole([UserRole.ADMIN])]
   },
   {
     method: "post",

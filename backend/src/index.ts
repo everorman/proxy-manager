@@ -81,6 +81,6 @@ createConnection().then(async connection => {
   // }
 
 
-  console.log(`Express server has started on port ${process.env.PORT}. Open http://localhost:${process.env.PORT}/users to see results`);
+  console.log(`Express server has started on port ${process.env.PORT}. Open http://localhost:${process.env.PORT} to see results`);
 
 }).catch(error => console.log(error));

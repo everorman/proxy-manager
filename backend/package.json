@@ -23,11 +23,14 @@
       "jsonwebtoken": "^8.5.1",
       "mysql": "^2.14.1",
       "reflect-metadata": "^0.1.13",
-      "typeorm": "0.2.45"
+      "typeorm": "0.2.45",
+      "typeorm-seeding": "^1.6.1"
    },
    "scripts": {
       "build": "tsc --project ./",
       "start": "ts-node src/index.ts",
-      "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
+      "serve": "nodemon src/index.ts",
+      "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
+      "db:seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
    }
 }
