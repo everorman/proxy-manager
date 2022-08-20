@@ -31,27 +31,29 @@ export class ProxyDashboardComponent implements OnInit {
     this.spinner.hide();
   }
 
-  async resetHost(host:ProxyType){
+  async resetHost(host: ProxyType) {
     this.spinner.show();
     this.proxyService.reset(host)
-    .then((result) => {
-      console.log('resetHost',result);
-      this.alerts.push({
-        type: 'success',
-        msg: `Proxy updated successfully`,
-        timeout: this.alertDuration
-      });
-    })
-    .catch((err) => {
-      this.alerts.push({
-        type: 'danger',
-        msg: `Error registering proxy: ${err.message}`,
-        timeout: this.alertDuration
-      });
-      console.log('resetHost',err);
-    })
+      .then((result) => {
+        console.log('resetHost', result);
+        this.alerts.push({
+          type: 'success',
+          msg: `Proxy updated successfully`,
+          timeout: this.alertDuration
+        });
+      })
+      .catch((err) => {
+        this.alerts.push({
+          type: 'danger',
+          msg: `Error registering proxy: ${err.message}`,
+          timeout: this.alertDuration
+        });
+        console.log('resetHost', err);
+      }).finally(() => {
+        this.spinner.hide();
+      })
     //mostrar de estatus de reset
-    this.spinner.hide();
+
   }
 
   onClosed(dismissedAlert: AlertComponent): void {

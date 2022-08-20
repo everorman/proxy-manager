@@ -6,10 +6,10 @@ import { UserType } from './types';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticatedResolver implements Resolve<UserType> {
+export class AuthenticatedResolver implements Resolve<UserType | null> {
   constructor(private authService: AuthService) {}
 
-  resolve(): Promise<UserType> {
+  resolve(): Promise<UserType | null> {
     return this.authService.getCurrentUserDetail();
   }
 }

@@ -1,13 +1,13 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { throwError } from 'rxjs';
 import { UserType } from 'src/app/components/authenticated/types';
 import { AuthJwtType, UserRegisterType } from 'src/app/types';
 import { environment } from 'src/environments/environment';
-import { TokenStorageService } from '../tokenStorage/token-storage.service';
 import { StatusRequestType } from '../../types';
+import { TokenStorageService } from '../tokenStorage/token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private spinner: NgxSpinnerService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
   ) { }
 
   async signUp(form: UserRegisterType) {
@@ -35,13 +35,15 @@ export class AuthService {
     try {
       const result = await this.http.post<UserRegisterType>(host, form, { headers: this.headers }).toPromise();
       console.log(result)
+      this.spinner.hide();
       return result;
     } catch (err) {
       console.log(err)
-      throw new Error();
-    } finally {
       this.spinner.hide();
+      throw new Error();
     }
+    
+    
 
   }
 
@@ -53,25 +55,33 @@ export class AuthService {
       if (result.data) {
         this.setSession((result.data as AuthJwtType));
       }
+      this.spinner.hide();
       return result;
     } catch (error: any) {
       console.error("Error al iniciar sesion", error);
-      return { error: error.error};
-    } finally {
       this.spinner.hide();
+      return { error: error.error };
     }
 
   }
 
-  async getCurrentUserDetail(): Promise<UserType> {
+  async getCurrentUserDetail(): Promise<UserType | null> {
     const host = `${environment.apiHost}/user/profile`;
     this.spinner.show();
-    const result = await this.http.post<UserType>(host, { headers: this.headers }).toPromise();
-    this.spinner.hide();
-    return result;
-  
-    
-    
+    try {
+      const result = await this.http.post<UserType>(host, { headers: this.headers }).toPromise();
+      this.spinner.hide();
+      return result;
+    } catch (err: any) {
+      console.log('err', err);
+      this.spinner.hide();
+      return null;
+    };
+
+
+
+
+
   }
 
   private setSession(authResult: AuthJwtType) {

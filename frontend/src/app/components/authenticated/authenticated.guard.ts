@@ -38,6 +38,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         return true;
       })
       .catch((err) => {
+        console.log('Error profile')
         this.tokenStorage.cleanUser();
         this.router.navigateByUrl('/login');
         return false;

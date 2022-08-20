@@ -57,7 +57,6 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptionSearch = this.searchForm.get("key")?.valueChanges.subscribe(selectedValue => {
-      console.log('key value changed')
       this.searchUser(selectedValue);
 
     })
@@ -67,19 +66,16 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
   }
 
   searchUser(key:string) {
-    console.log('searchUser');
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
     this.subscription = this.userService.search(key)
       .subscribe((res) => {
         this.users = (res as SearchUserType[]);
-        console.log('searchUser', res);
       })
   }
 
   getControl(name: string) {
-    console.log(name, this.proxyForm.get(name));
     return this.proxyForm.get(name) as FormControl;
   }
 
@@ -103,7 +99,7 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
       return;
     }
     console.log(this.proxyForm.value);
-    this.spinner.show;
+    this.spinner.show();
     
     this.proxyService.addItem(this.proxyForm.value)
     .then(async (result) => {
@@ -141,7 +137,7 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
   }
 
   onStatusChange(proxy:ProxyType) {
-    this.spinner.show;
+    this.spinner.show();
     this.proxyService.updateItem(proxy)
     .then(() => {
       this.alerts.push({
