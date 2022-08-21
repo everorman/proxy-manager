@@ -27,6 +27,7 @@ import { ProxyDashboardComponent } from '../proxy/proxy-dashboard/proxy-dashboar
 import { ProxyStatusNamePipe } from 'src/app/pipes/proxy-status-name.pipe';
 import { ProxyItemComponent } from '../proxy/proxy-item/proxy-item.component';
 import { AlertsService } from 'src/app/services/alerts/alerts.service';
+import { UsersAdminComponent } from '../usersAdmin/usersAdmin.component';
 
 
 
@@ -45,8 +46,8 @@ import { AlertsService } from 'src/app/services/alerts/alerts.service';
     FormatFullaName,
     SearchUserComponent,
     ProxyDashboardComponent,
-    ProxyItemComponent
-    
+    ProxyItemComponent,
+    UsersAdminComponent
   ],
   imports: [
     CommonModule,

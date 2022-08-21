@@ -16,6 +16,7 @@ import { ModalBasicComponent } from './components/modalBasic/modalBasic.componen
 import { RotateComponent } from './components/rotate/rotate.component';
 import { GuestModule } from './guest/guest.module';
 import { HomeComponent } from './home/home.component';
+import { PriceCardComponent } from './home/price-card/price-card.component';
 import { TokenInterceptor } from './interceptors/token-interceptor.service';
 import { LoginComponent } from './login/login.component';
 import { ProxyStatusNamePipe } from './pipes/proxy-status-name.pipe';
@@ -29,6 +30,7 @@ import { ProxyStatusNamePipe } from './pipes/proxy-status-name.pipe';
     ListIPComponent,
     LoginComponent,
     ModalBasicComponent,
+    PriceCardComponent
    ],
   imports: [
     ModalModule.forRoot(),

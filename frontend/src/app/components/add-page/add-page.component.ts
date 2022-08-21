@@ -89,7 +89,7 @@ export class AddPageComponent implements OnInit {
 
   async addItem() {
     
-    this.spinner.show;
+    this.spinner.show();
     this.modalRef.hide();
     if(this.ipRecord && (this.ipRecord.ip === this.itemForm.value.ip)){
       await this.pageService.updateSite({...this.itemForm.value, id:this.ipRecord.id});

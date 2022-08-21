@@ -1071,6 +1071,7 @@ p {
 .about-section {
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 
 @media (max-width: 767px) {
@@ -2173,4 +2174,14 @@ p {
 
 .pb-225 {
   padding-bottom: 225px;
+}
+
+.section-dark{
+  background: rgba(88, 100, 255, 0.1);
+}
+
+.price-section{
+  >div>div{
+
+  }
 }

@@ -10,6 +10,8 @@ import { AuthGuard } from './authenticated.guard';
 import { AuthenticatedResolver } from './authenticated.resolver';
 import { ProxyDashboardComponent } from '../proxy/proxy-dashboard/proxy-dashboard.component';
 import { ProxyListResolver } from 'src/app/resolvers/proxy-list.resolver';
+import { UsersAdminComponent } from '../usersAdmin/usersAdmin.component';
+import { UserListResolver } from '../usersAdmin/userAdmin.list.resolve';
 
 const routes: Routes = [
   {
@@ -43,6 +45,13 @@ const routes: Routes = [
         component: ProxyDashboardComponent,
         resolve: {
           list: ProxyListResolver
+        }
+      },
+      {
+        path: 'userAdmin',
+        component: UsersAdminComponent,
+        resolve: {
+          list: UserListResolver
         }
       },
       {

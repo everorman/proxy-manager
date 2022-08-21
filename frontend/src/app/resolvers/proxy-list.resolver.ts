@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
-  Router, Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot, Resolve,
+  RouterStateSnapshot
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
 import { ProxyType } from '../components/proxy/proxy.type';
 import { ProxyService } from '../services/proxy/proxy.service';
 import { PaginationRequestType } from '../types';
