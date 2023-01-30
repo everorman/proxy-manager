@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { ModalBasicComponent } from '../components/modalBasic/modalBasic.component';
 import { AuthService } from '../services/auth/auth.service';
@@ -15,40 +15,40 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   showSigUp = false;
-  userForm: FormGroup = new FormGroup({});
-  loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [
+  userForm: UntypedFormGroup = new UntypedFormGroup({});
+  loginForm: UntypedFormGroup = new UntypedFormGroup({
+    email: new UntypedFormControl('', [
       Validators.required,
       Validators.minLength(4),
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     ]),
-    password: new FormControl('', Validators.required)
+    password: new UntypedFormControl('', Validators.required)
   });
   bsModalRef?: BsModalRef;
   alerts: any[] = [];
 
   constructor(
     private modalService: BsModalService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router,
   ) {
     this.userForm = fb.group({
-      firstName: new FormControl('', [
+      firstName: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(4),
       ]),
-      lastName: new FormControl('', [
+      lastName: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(4),
       ]),
-      email: new FormControl('', [
+      email: new UntypedFormControl('', [
         Validators.required,
         Validators.minLength(4),
         Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
       ]),
-      password: new FormControl('', Validators.required),
-      passwordRepeat: new FormControl('', Validators.required)
+      password: new UntypedFormControl('', Validators.required),
+      passwordRepeat: new UntypedFormControl('', Validators.required)
     }, {
       validator: ConfirmedValidator('password', 'passwordRepeat')
     })
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
     this.bsModalRef.content.closeBtnName = 'Close';
   }
 
-  async onSubmit(form: FormGroup) {
+  async onSubmit(form: UntypedFormGroup) {
     if (form.valid) {
       try {
         const result = await this.authService.signUp(form.value);

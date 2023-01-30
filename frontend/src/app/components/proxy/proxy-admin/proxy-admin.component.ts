@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AlertComponent } from 'ngx-bootstrap/alert';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -23,20 +23,20 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
   currentPage: number = 0;
   modalRef!: BsModalRef;
 
-  proxyForm: FormGroup = new FormGroup({
-    host: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    urlReset: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    description: new FormControl(''),
-    userId: new FormControl(''),
-    hostUser: new FormControl(''),
-    hostPassword: new FormControl('', [Validators.required, Validators.minLength(4)]),
-    status: new FormControl('', [Validators.required, Validators.minLength(4)])
+  proxyForm: UntypedFormGroup = new UntypedFormGroup({
+    host: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
+    urlReset: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
+    description: new UntypedFormControl(''),
+    userId: new UntypedFormControl(''),
+    hostUser: new UntypedFormControl(''),
+    hostPassword: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
+    status: new UntypedFormControl('', [Validators.required, Validators.minLength(4)])
   });
   subscription!: Subscription;
   subscriptionSearch!: Subscription | undefined;
   users: SearchUserType[] = [];
-  searchForm = new FormGroup({
-    key: new FormControl(''),
+  searchForm = new UntypedFormGroup({
+    key: new UntypedFormControl(''),
   })
 
   
@@ -76,7 +76,7 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
   }
 
   getControl(name: string) {
-    return this.proxyForm.get(name) as FormControl;
+    return this.proxyForm.get(name) as UntypedFormControl;
   }
 
   async pageChanged(event: PageChangedEvent) {

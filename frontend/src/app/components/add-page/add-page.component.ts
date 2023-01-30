@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { PageService } from '../../services/page/page.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { CurrentIpType, PageType } from '../../types';
 import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -20,9 +20,9 @@ export class AddPageComponent implements OnInit {
   items: PageType[] = [];
   currentIp: string = '';
   modalRef!: BsModalRef;
-  itemForm!: FormGroup;
-  searchForm = new FormGroup({
-    seachText: new FormControl(''),
+  itemForm!: UntypedFormGroup;
+  searchForm = new UntypedFormGroup({
+    seachText: new UntypedFormControl(''),
   });;
   ipRemoteDetail!: PageType;
   ipRecord!:PageType;
@@ -50,12 +50,12 @@ export class AddPageComponent implements OnInit {
 
     await this.loadIpDetail();
     await this.getIpRecord();
-    this.itemForm = new FormGroup({
-      ip: new FormControl(this.currentIp),
-      description: new FormControl(''),
-      organization: new FormControl(this.ipRemoteDetail.organization),
-      region: new FormControl(this.ipRemoteDetail.region),
-      score: new FormControl(this.ipRemoteDetail.score),
+    this.itemForm = new UntypedFormGroup({
+      ip: new UntypedFormControl(this.currentIp),
+      description: new UntypedFormControl(''),
+      organization: new UntypedFormControl(this.ipRemoteDetail.organization),
+      region: new UntypedFormControl(this.ipRemoteDetail.region),
+      score: new UntypedFormControl(this.ipRemoteDetail.score),
     });
 
     this.dtOptions = {

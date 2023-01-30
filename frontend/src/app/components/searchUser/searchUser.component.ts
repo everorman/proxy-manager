@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user/user.service';
 import { SearchUserType } from './searchUser.type';
@@ -11,12 +11,12 @@ import { SearchUserType } from './searchUser.type';
   styleUrls: ['./searchUser.component.scss']
 })
 export class SearchUserComponent implements OnInit, OnDestroy {
-  @Input() formControl!: FormControl;
+  @Input() formControl!: UntypedFormControl;
   subscription!: Subscription;
   subscriptionSearch!: Subscription | undefined;
   users: SearchUserType[] = [];
-  searchForm = new FormGroup({
-    key: new FormControl(''),
+  searchForm = new UntypedFormGroup({
+    key: new UntypedFormControl(''),
   })
   constructor(private userService: UserService) { }
 
