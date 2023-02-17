@@ -20,7 +20,7 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'rotate/3kxfWSO6WdCB1A14LfIf',
+    path: 'rotate/:id/3kxfWSO6WdCB1A14LfIf',
     component: RotateComponent
   },
   {

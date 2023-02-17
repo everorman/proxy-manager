@@ -19,11 +19,10 @@ import { HomeComponent } from './home/home.component';
 import { PriceCardComponent } from './home/price-card/price-card.component';
 import { TokenInterceptor } from './interceptors/token-interceptor.service';
 import { LoginComponent } from './login/login.component';
-import { ProxyStatusNamePipe } from './pipes/proxy-status-name.pipe';
 
 
 @NgModule({
-  declarations: [	
+  declarations: [
     AppComponent,
     HomeComponent,
     RotateComponent,
@@ -31,7 +30,7 @@ import { ProxyStatusNamePipe } from './pipes/proxy-status-name.pipe';
     LoginComponent,
     ModalBasicComponent,
     PriceCardComponent
-   ],
+  ],
   imports: [
     ModalModule.forRoot(),
     AlertModule.forRoot(),

@@ -5,7 +5,7 @@ import { TokenStorageService } from '../services';
 @Pipe({
   name: 'formatFullName'
 })
-export class FormatFullaName implements PipeTransform {
+export class FormatFullName implements PipeTransform {
   constructor(private tokenStorage: TokenStorageService) { }
 
   transform(value: SearchUserType, ...args: unknown[]): unknown {

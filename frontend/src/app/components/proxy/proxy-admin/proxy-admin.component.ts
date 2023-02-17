@@ -25,6 +25,7 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
 
   proxyForm: UntypedFormGroup = new UntypedFormGroup({
     host: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
+    sock: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
     urlReset: new UntypedFormControl('', [Validators.required, Validators.minLength(4)]),
     description: new UntypedFormControl(''),
     userId: new UntypedFormControl(''),
@@ -39,7 +40,7 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
     key: new UntypedFormControl(''),
   })
 
-  
+
   alerts: any[] = [];
 
   private alertDuration = 5000;
@@ -60,12 +61,12 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
       this.searchUser(selectedValue);
 
     })
-    
+
     this.proxyList = this.route.snapshot.data.list;
     console.log(this.proxyList);
   }
 
-  searchUser(key:string) {
+  searchUser(key: string) {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
@@ -90,7 +91,7 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
   }
 
   async addItem() {
-    if(this.proxyForm.invalid) {
+    if (this.proxyForm.invalid) {
       this.alertsService.addAlert({
         type: 'danger',
         msg: `Check the form fields`,
@@ -100,30 +101,30 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
     }
     console.log(this.proxyForm.value);
     this.spinner.show();
-    
-    this.proxyService.addItem(this.proxyForm.value)
-    .then(async (result) => {
 
-      this.alertsService.addAlert({
-        type: 'success',
-        msg: `Proxy registered successfully`,
-        timeout: this.alertDuration
+    this.proxyService.addItem(this.proxyForm.value)
+      .then(async (result) => {
+
+        this.alertsService.addAlert({
+          type: 'success',
+          msg: `Proxy registered successfully`,
+          timeout: this.alertDuration
+        })
+        this.modalRef.hide();
+        this.proxyForm.reset();
+        this.searchForm.reset();
+        this.proxyList = await this.proxyService.getItems();
       })
-      this.modalRef.hide();
-      this.proxyForm.reset();
-      this.searchForm.reset();
-      this.proxyList = await this.proxyService.getItems();
-    })
-    .catch((err) => {
-      this.alertsService.addAlert({
-        type: 'danger',
-        msg: `Error registering proxy: ${err.message}`,
-        timeout: this.alertDuration
+      .catch((err) => {
+        this.alertsService.addAlert({
+          type: 'danger',
+          msg: `Error registering proxy: ${err.message}`,
+          timeout: this.alertDuration
+        })
       })
-    })
-    .finally(() => {
-      this.spinner.hide();
-    })
+      .finally(() => {
+        this.spinner.hide();
+      })
   }
 
   // onClosed(dismissedAlert: AlertComponent): void {
@@ -136,27 +137,27 @@ export class ProxyAdminComponent implements OnInit, OnDestroy {
     }
   }
 
-  onStatusChange(proxy:ProxyType) {
+  onStatusChange(proxy: ProxyType) {
     this.spinner.show();
     this.proxyService.updateItem(proxy)
-    .then(() => {
-      this.alerts.push({
-        type: 'success',
-        msg: `Proxy updated successfully`,
-        timeout: this.alertDuration
-      });
-    })
-    .catch((err) => {
-      this.alerts.push({
-        type: 'danger',
-        msg: `Error registering proxy: ${err.message}`,
-        timeout: this.alertDuration
-      });
-      console.log(err);
-    })
-    .finally(() => {
-      this.spinner.hide();
-    })
+      .then(() => {
+        this.alerts.push({
+          type: 'success',
+          msg: `Proxy updated successfully`,
+          timeout: this.alertDuration
+        });
+      })
+      .catch((err) => {
+        this.alerts.push({
+          type: 'danger',
+          msg: `Error registering proxy: ${err.message}`,
+          timeout: this.alertDuration
+        });
+        console.log(err);
+      })
+      .finally(() => {
+        this.spinner.hide();
+      })
   }
 
   ngOnDestroy(): void {

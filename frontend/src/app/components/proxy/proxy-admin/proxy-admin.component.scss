@@ -1,13 +1,11 @@
-@import "/src/styles/sharedVars.scss";
+@import '/src/styles/sharedVars.scss';
 
-
-
-.container{
+.container {
   margin-top: 100px;
 }
 
-.float-add-button{
-  position: fixed;
+.float-add-button {
+  // position: fixed;
   bottom: 20px;
   right: 20px;
   z-index: 9999;
@@ -18,13 +16,12 @@
   border: none;
   box-shadow: 0 10px 25px -5px rgba(59, 59, 59, 0.6);
   color: white;
-  &:hover{
+  &:hover {
     box-shadow: 0 10px 25px rgba(59, 59, 59, 0.6);
   }
-  
 }
 
-.alert-wrapper{
+.alert-wrapper {
   position: absolute;
   right: 15px;
   top: -10px;

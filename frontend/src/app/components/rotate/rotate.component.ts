@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { environment } from 'src/environments/environment';
 
@@ -8,9 +9,14 @@ import { environment } from 'src/environments/environment';
   templateUrl: './rotate.component.html',
   styleUrls: ['./rotate.component.scss']
 })
-export class RotateComponent implements OnInit {
-
-  constructor(protected http: HttpClient, private spinner: NgxSpinnerService) { }
+export class RotateComponent implements OnDestroy {
+  id: number = 0;
+  private sub: any;
+  constructor(protected http: HttpClient, private spinner: NgxSpinnerService, private route: ActivatedRoute) {
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id']; // (+) converts string 'id' to a number
+    });
+  }
 
   reset() {
     this.spinner.show();
@@ -18,19 +24,20 @@ export class RotateComponent implements OnInit {
     //   this.spinner.hide();
     // }, 3000);
     const host = `${environment.apiHost}/extras/rotate`;
-    this.http.post(host,{}).toPromise()
-    .then((result) => {
-      console.warn(result);
-      alert('The rotation may take 1 minute to complete.');
-    }).catch((err) => {
-      alert('An error occurred.')
-      console.log(err);
-    }).finally(() => {
-      this.spinner.hide();
-    })
+    this.http.post(host, { id: this.id }).toPromise()
+      .then((result) => {
+        console.warn(result);
+        alert('The rotation may take 1 minute to complete.');
+      }).catch((err) => {
+        alert('An error occurred.')
+        console.log(err);
+      }).finally(() => {
+        this.spinner.hide();
+      })
   }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }
