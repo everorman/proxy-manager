@@ -66,7 +66,7 @@ export class ProxyController {
 
   async save(request: Request, response: Response, next: NextFunction) {
     const created_by = response.jwtPayload.userId;
-    const { userId, host, description, status, hostUser, hostPassword, urlReset } = request.body;
+    const { userId, host, description, status, hostUser, hostPassword, urlReset, sock } = request.body;
     const owner = await this.userRepository.findOne(userId);
     const proxy = new Proxy();
     proxy.host = host;
@@ -76,6 +76,7 @@ export class ProxyController {
     proxy.hostPassword = hostPassword;
     proxy.created_by = created_by;
     proxy.urlReset = urlReset;
+    proxy.sock5 = sock;
     proxy.user = owner;
     console.log('Guardando ProxyController', proxy, response.jwtPayload)
     await this.proxyRepository.save(proxy);
@@ -90,10 +91,10 @@ export class ProxyController {
 
     if (currentUser.roles.indexOf(UserRole.ADMIN) >= 0) {
       return this.restHost(host);
-    }else{
+    } else {
       if (host.user.id !== currentUserId) {
         return { code: 403, message: 'You are not allowed to reset this host' };
-      }else{
+      } else {
         return this.restHost(host);
       }
     }
@@ -102,7 +103,7 @@ export class ProxyController {
 
   private restHost(host: Proxy) {
     axios.get(host.urlReset).then(res => {
-      return { code: 200, message: 'Host reseted'};
+      return { code: 200, message: 'Host reseted' };
     }).catch(err => {
       console.log(err);
       return { code: 500, message: 'Error reseting host' };
