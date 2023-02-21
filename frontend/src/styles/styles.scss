@@ -1,17 +1,13 @@
-/* Importing Bootstrap SCSS file. */
-@import "~bootstrap/scss/bootstrap";
-
 /* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+@import 'node_modules/ngx-bootstrap/datepicker/bs-datepicker';
 
-@import "./fonts";
+@import './fonts';
 
-html, body {
-  height: 100%!important;
+html,
+body {
+  height: 100% !important;
 }
 
-.clickable{
+.clickable {
   cursor: pointer;
 }
-
-
