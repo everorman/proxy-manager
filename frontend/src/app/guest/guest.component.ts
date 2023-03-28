@@ -20,7 +20,7 @@ export class GuestComponent implements AfterViewInit {
   title$!: Observable<string>;
 
   back(): void {
-    this.router.navigate(['/guest'])
+    this.router.navigate(['/home'])
   }
 
   ngAfterViewInit() {

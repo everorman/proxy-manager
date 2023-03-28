@@ -31,6 +31,7 @@
 
     // show or hide the back-top-top button
     const backToTo = document.querySelector(".scroll-top");
+    if(!backToTo) return;
     if (
       document.body.scrollTop > 50 ||
       document.documentElement.scrollTop > 50

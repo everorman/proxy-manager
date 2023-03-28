@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GuestComponent } from './guest.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { FaqsComponent } from './faqs/faqs.component';
+import { GuestRoutingModule } from './guest-routing.module';
+import { GuestComponent } from './guest.component';
 import { TerminosCondicionesComponent } from './terminosCondiciones/terminosCondiciones.component';
-import { AppRoutingModule } from '../app-routing.module';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { AppRoutingModule } from '../app-routing.module';
   ],
   imports: [
     CommonModule,
-    AppRoutingModule,
+    GuestRoutingModule,
+    RouterOutlet,
+    AccordionModule.forRoot()
   ],
 })
 export class GuestModule { }
