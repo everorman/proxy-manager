@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { UserType } from 'src/app/components/authenticated/types';
-import { UserRegisterType } from 'src/app/types';
+import { UserType } from '../../types/authenticated.type';
+
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const EXPIRES_AT = 'expires-at';
+
 @Injectable({
   providedIn: 'root'
 })
